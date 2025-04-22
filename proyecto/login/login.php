@@ -35,11 +35,11 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
 
             if ($usuario['administrador'] == 1) {
                 echo " Usuario administrador autenticado. Redirigiendo...";
-                header("Location: /projecto/plana_administracio/admin.html");
+                header("Location: /proyecto/plana_administracio/admin.html");
                 exit();
             } else {
                 echo "Usuario normal autenticado. Redirigiendo...";
-                header("Location: /projecto/plana_usuari/usuario.html");
+                header("Location: /proyecto/plana_usuari/usuario.html");
                 exit();
             }
         } else {

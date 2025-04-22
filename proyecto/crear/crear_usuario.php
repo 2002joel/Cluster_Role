@@ -35,7 +35,7 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
 
         if ($stmt->execute()) {
             echo " Usuario administrador autenticado. Redirigiendo...";
-            header("Location: /projecto/login/login.html");
+            header("Location: /proyecto/login/login.html");
             exit();
         } else {
             echo "❌ Error al registrar el usuario.";
