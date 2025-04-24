@@ -1,0 +1,56 @@
+body {
+    font-family: 'Georgia', serif;
+    background-color: #f5eaea;
+    color: #3d1f1f;
+  }
+  
+  .bg-claro {
+    background-color: #fff6f4;
+  }
+  
+  .bg-rosa-suave {
+    background-color: #fbe3db;
+  }
+  
+  .titulo {
+    font-family: 'Cinzel', serif;
+    color: #7b2c2c;
+    font-size: 1.8rem;
+  }
+  
+  .chat-bubble {
+    background-color: #f3d5d5;
+    padding: 10px;
+    border-radius: 15px;
+    box-shadow: 1px 1px 5px rgba(0, 0, 0, 0.1);
+    font-size: 0.9rem;
+    color: #3d1f1f;
+  }
+  
+  .alerta {
+    background-color: #ffdfdf;
+    padding: 10px;
+    border: 1px solid #ff7b7b;
+    border-radius: 10px;
+    font-size: 0.85rem;
+    color: #7b2c2c;
+  }
+  
+  .banner {
+    height: 150px;
+    background-color: #ffc;
+    border-radius: 10px;
+    background-size: cover;
+    background-position: center;
+  }
+  
+  .actualizacion, .versiones {
+    background-color: #fff0f0;
+    border: 1px solid #d3a4a4;
+    border-radius: 10px;
+  }
+  
+  h2, h3 {
+    color: #7b2c2c;
+  }
+  
