@@ -15,140 +15,203 @@
       overflow: hidden;
     }
 
-    .carrusel-lateral {
-      height: 100vh;
-      background-color: #f0f0f0;
-      position: relative;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-    }
-
     .carousel-inner {
       height: 100%;
     }
 
     .carousel-item img {
-      height: 100vh;
-      width: 100%;
-      object-fit: cover;
-    }
-
+  max-height: 100vh;
+  max-width: 100%;
+  object-fit: contain;
+  display: block;
+  margin: auto;
+}
     .contenido-central {
-      height: 100vh;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      background: #fff;
+  position: relative;
+  z-index: 10;
+  background-color: transparent !important;
+  padding: 2rem;
+  border-radius: 0;
+  box-shadow: none;
+}
+    /* Estilo base oculto */
+    .triangle-mask-izquierda,
+    .triangle-mask-derecha {
+      display: none;
     }
 
-    h1 {
-      font-size: 3rem;
+    /* md a lg: rectángulos */
+    @media (min-width: 768px) and (max-width: 991.98px) {
+      .triangle-mask-izquierda,
+      .triangle-mask-derecha {
+        background-color: white;
+        display: block;
+        position: absolute;
+        top: 0;
+        width: 30vw;
+        height: 100vh;
+        z-index: 1;
+        overflow: hidden;
+        pointer-events: none;
+      }
+
+      .triangle-mask-izquierda {
+        left: 0;
+      }
+
+      .triangle-mask-derecha {
+        right: 0;
+      }
+
+      .triangle-mask-izquierda,
+      .triangle-mask-derecha {
+        clip-path: none;
+      }
+
+      .triangle-mask-izquierda img,
+      .triangle-mask-derecha img {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+      }
+    }
+
+    /* lg en adelante: triángulos */
+    @media (min-width: 992px) {
+
+      .carousel-item img {
+        
+  max-height: 50%;
+  max-width: 50%;
+  object-fit: contain;
+  display: block;
+  margin: auto;
+}
+      .triangle-mask-izquierda,
+      .triangle-mask-derecha {
+        display: block;
+        position: absolute;
+        top: 0;
+        height: 100vh;
+        z-index: 1;
+        overflow: hidden;
+        pointer-events: none;
+      }
+
+      .triangle-mask-izquierda {
+        left: 0;
+        width: 50vw;
+        clip-path: polygon(0 0, 100% 0, 0 100%);
+      }
+
+      .triangle-mask-derecha {
+        right: 0;
+        width: 50vw;
+        clip-path: polygon(100% 0, 100% 100%, 0 0);
+      }
+
+      .triangle-mask-izquierda img,
+      .triangle-mask-derecha img {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+      }
     }
   </style>
 </head>
 <body>
+  <div class="container-fluid position-relative">
+    <div class="row min-vh-100 d-flex align-items-center justify-content-center">
 
-<div class="container-fluid">
-  <div class="row">
-
-    <!-- Carrusel Izquierdo -->
-    <div class="col-2 carrusel-lateral p-0">
-      <div id="carouselIzquierda" class="carousel slide carousel-fade" data-bs-ride="carousel" data-bs-interval="3000">
-        <div class="carousel-inner">
-          <div class="carousel-item active">
-            <img src="/proyecto/foto/photos/imagen_login1.jpg" class="d-block w-100" alt="">
+      <!-- Triángulo izquierdo -->
+      <div class="triangle-mask-izquierda">
+        <div id="carouselIzquierda" class="carousel slide carousel-fade h-100" data-bs-ride="carousel" data-bs-interval="3000">
+          <div class="carousel-inner h-100">
+            <div class="carousel-item active">
+              <img src="/proyecto/foto/photos/imagen_login1.jpg" alt="">
+            </div>
+            <div class="carousel-item">
+              <img src="/proyecto/foto/photos/imagen_login2.jpg" alt="">
+            </div>
+            <div class="carousel-item">
+              <img src="/proyecto/foto/photos/imagen_login3.jpg" alt="">
+            </div>
+            <div class="carousel-item">
+              <img src="/proyecto/foto/photos/imagen_login4.jpg" alt="">
+            </div>
+            <div class="carousel-item">
+              <img src="/proyecto/foto/photos/imagen_login5.jpg" alt="">
+            </div>
+            <div class="carousel-item">
+              <img src="/proyecto/foto/photos/imagen_login6.jpg" alt="">
+            </div>
+            <div class="carousel-item">
+              <img src="/proyecto/foto/photos/imagen_login7.jpg" alt="">
+            </div>
+            <div class="carousel-item">
+              <img src="/proyecto/foto/photos/imagen_login8.jpg" alt="">
+            </div>
+            <div class="carousel-item">
+              <img src="/proyecto/foto/photos/imagen_login9.jpg" alt="">
+            </div>
+            <div class="carousel-item">
+              <img src="/proyecto/foto/photos/imagen_login10.jpg" alt="">
+            </div>
           </div>
-          <div class="carousel-item ">
-            <img src="/proyecto/foto/photos/imagen_login2.jpg" class="d-block w-100" alt="">
-          </div>
-          <div class="carousel-item ">
-            <img src="/proyecto/foto/photos/imagen_login3.jpg" class="d-block w-100" alt="">
-          </div>
-          <div class="carousel-item ">
-            <img src="/proyecto/foto/photos/imagen_login4.jpg" class="d-block w-100" alt="">
-          </div>
-          <div class="carousel-item ">
-            <img src="/proyecto/foto/photos/imagen_login5.jpg" class="d-block w-100" alt="">
-          </div>
-          <div class="carousel-item ">
-            <img src="/proyecto/foto/photos/imagen_login6.jpg" class="d-block w-100" alt="">
-          </div>
-          <div class="carousel-item ">
-            <img src="/proyecto/foto/photos/imagen_login7.jpg" class="d-block w-100" alt="">
-          </div>
-          <div class="carousel-item ">
-            <img src="/proyecto/foto/photos/imagen_login8.jpg" class="d-block w-100" alt="">
-          </div>
-          <div class="carousel-item ">
-            <img src="/proyecto/foto/photos/imagen_login9.jpg" class="d-block w-100" alt="">
-          </div>
-          <div class="carousel-item ">
-            <img src="/proyecto/foto/photos/imagen_login10.jpg" class="d-block w-100" alt="">
-          </div>
-        
-          <!-- Añade más imágenes si quieres -->
         </div>
       </div>
-    </div>
 
-    <!-- Contenido Central -->
-    <div class="col-8 contenido-central bg-light">
-        <h1>Contenido Central</h1>
+      <!-- Contenido central -->
+      <div class="col-10 col-md-6 col-lg-4 contenido-central text-center flex-column">
+        <h1>Login</h1>
         <form method="POST" action="login.php">
             <input type="text" name="user_name" placeholder="Usuario" required class="form-control mb-2">
             <input type="password" name="pass" placeholder="Contraseña" required class="form-control mb-2">
             <button type="submit" class="btn btn-primary w-100">Iniciar sesión</button>
-  
+        </form>
       </div>
 
-    <!-- Carrusel Derecho -->
-    <div class="col-2 carrusel-lateral p-0">
-      <div id="carouselDerecha" class="carousel slide carousel-fade" data-bs-ride="carousel" data-bs-interval="3000">
-        <div class="carousel-inner">
-          <div class="carousel-item active">
-            <img src="/proyecto/foto/photos/imagen_login11.jpg" class="d-block w-100" alt="">
+      <!-- Triángulo derecho -->
+      <div class="triangle-mask-derecha">
+        <div id="carouselDerecha" class="carousel slide carousel-fade h-100" data-bs-ride="carousel" data-bs-interval="3000">
+          <div class="carousel-inner h-100">
+            <div class="carousel-item active">
+              <img src="/proyecto/foto/photos/imagen_login11.jpg" alt="">
+            </div>
+            <div class="carousel-item">
+              <img src="/proyecto/foto/photos/imagen_login12.jpg" alt="">
+            </div>
+            <div class="carousel-item">
+              <img src="/proyecto/foto/photos/imagen_login13.jpg" alt="">
+            </div>
+            <div class="carousel-item">
+              <img src="/proyecto/foto/photos/imagen_login14.jpg" alt="">
+            </div>
+            <div class="carousel-item">
+              <img src="/proyecto/foto/photos/imagen_login15.jpg" alt="">
+            </div>
+            <div class="carousel-item">
+              <img src="/proyecto/foto/photos/imagen_login16.jpg" alt="">
+            </div>
+            <div class="carousel-item">
+              <img src="/proyecto/foto/photos/imagen_login17.jpg" alt="">
+            </div>
+            <div class="carousel-item">
+              <img src="/proyecto/foto/photos/imagen_login18.jpg" alt="">
+            </div>
+            <div class="carousel-item">
+              <img src="/proyecto/foto/photos/imagen_login19.jpg" alt="">
+            </div>
+            <div class="carousel-item">
+              <img src="/proyecto/foto/photos/imagen_login20.jpg" alt="">
+            </div>
           </div>
-          <div class="carousel-item">
-            <img src="/proyecto/foto/photos/imagen_login12.jpg" class="d-block w-100" alt="">
-          </div>
-          <div class="carousel-item">
-            <img src="/proyecto/foto/photos/imagen_login13.jpg" class="d-block w-100" alt="">
-          </div>
-          <div class="carousel-item">
-            <img src="/proyecto/foto/photos/imagen_login14.jpg" class="d-block w-100" alt="">
-          </div>
-          <div class="carousel-item">
-            <img src="/proyecto/foto/photos/imagen_login15.jpg" class="d-block w-100" alt="">
-          </div>
-          <div class="carousel-item">
-            <img src="/proyecto/foto/photos/imagen_login16.jpg" class="d-block w-100" alt="">
-          </div>
-          <div class="carousel-item">
-            <img src="/proyecto/foto/photos/imagen_login17.jpg" class="d-block w-100" alt="">
-          </div>
-          <div class="carousel-item">
-            <img src="/proyecto/foto/photos/imagen_login18.jpg" class="d-block w-100" alt="">
-          </div>
-          <div class="carousel-item">
-            <img src="/proyecto/foto/photos/imagen_login19.jpg" class="d-block w-100" alt="">
-          </div>
-          <div class="carousel-item">
-            <img src="/proyecto/foto/photos/imagen_login20.jpg" class="d-block w-100" alt="">
-          </div>
-         
-          <!-- Añade más imágenes si quieres -->
         </div>
       </div>
+
     </div>
-
   </div>
-</div>
 
-<!-- Bootstrap Bundle JS (con Popper incluido) -->
-<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
-
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
 </body>
 </html>
-
-
