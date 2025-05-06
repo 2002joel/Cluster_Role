@@ -2,17 +2,25 @@
 session_start();
 include 'conexion.php';
 
-// Verificar que el usuario está logueado y que se ha enviado un mensaje
-if (isset($_POST['mensaje']) && isset($_SESSION['id_user'])) {
-    $id_user = $_SESSION['id_user'];
-    $mensaje = mysqli_real_escape_string($conn, $_POST['mensaje']);
-    
-    // Insertamos el mensaje en la base de datos
-    $query = "INSERT INTO chat (id_user, text) VALUES ('$id_user', '$mensaje')";
-    mysqli_query($conn, $query);
+if (!isset($_SESSION['id_user'])) {
+  die("No autorizado");
 }
 
-// Redirigimos a la página principal para mostrar los mensajes actualizados
+$id_user = $_SESSION['id_user'];
+$mensaje = trim($_POST['mensaje'] ?? '');
+
+if ($mensaje !== '') {
+  // Insertar en la tabla chat
+  $stmt = $conn->prepare("INSERT INTO chat (id_user, text, date) VALUES (?, ?, NOW())");
+  $stmt->bind_param("is", $id_user, $mensaje);
+  $stmt->execute();
+  $id_chat = $stmt->insert_id;
+
+  // Insertar en la tabla de relación
+  $stmt2 = $conn->prepare("INSERT INTO chat_usuarios (id_chat, id_usuarios) VALUES (?, ?)");
+  $stmt2->bind_param("ii", $id_chat, $id_user);
+  $stmt2->execute();
+}
+
 header("Location: admin.php");
-exit();
-?>
+exit;
