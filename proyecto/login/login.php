@@ -1,4 +1,6 @@
 <?php
+session_start();  // Asegúrate de iniciar la sesión
+
 include('conexion.php'); // O también puedes usar require('conexion.php');
 
 if ($conn->connect_error) {
@@ -17,7 +19,7 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
     // DEPURACIÓN: Mostrar valores recibidos
     echo "📥 Usuario recibido: $username<br>";
 
-    $stmt = $conn->prepare("SELECT * FROM users WHERE user_name = ? LIMIT 1");
+    $stmt = $conn->prepare("SELECT * FROM usuarios WHERE user_name = ? LIMIT 1");
     $stmt->bind_param("s", $username);
     $stmt->execute();
     $result = $stmt->get_result();
@@ -30,16 +32,18 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
         echo "🔐 Hash guardado: " . $usuario['contraseña'] . "<br>";
 
         if (!empty($usuario['contraseña']) && password_verify($password, $usuario['contraseña'])) {
+            // Almacenar la información del usuario en la sesión
             $_SESSION['user_name'] = $usuario['user_name'];
             $_SESSION['id_user'] = $usuario['id_user'];
 
+            // Redirigir según el tipo de usuario
             if ($usuario['administrador'] == 1) {
                 echo " Usuario administrador autenticado. Redirigiendo...";
-                header("Location: /Cluster_Role/proyecto/plana_administracio/admin.html");
+                header("Location: /Cluster_Role/proyecto/plana_administracio/admin.php");
                 exit();
             } else {
                 echo "Usuario normal autenticado. Redirigiendo...";
-                header("Location: /Cluster_Role/proyecto/plana_usuari/usuario.html");
+                header("Location: /Cluster_Role/proyecto/plana_usuari/usuario.php");  // Redirige al chat.php
                 exit();
             }
         } else {
@@ -50,5 +54,6 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
     }
 }
 ?>
+
 
 

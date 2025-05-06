@@ -6,9 +6,7 @@
   <title>Cluster Role - Layout Discord</title>
   <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
   <link rel="stylesheet" href="styles.css" />
-  <style>
-   
-  </style>
+
 </head>
 <body class="bg-light text-dark">
 
@@ -20,18 +18,18 @@
   <div class="container-fluid">
     <div class="row vh-100">
 
-      <!-- Sidebar izquierda -->
-      <aside class="col-md-3 p-3 bg-claro text-end d-flex flex-column justify-content-end overflow-auto">
-        <div class="chat-bubble mb-2">Mensaje 1</div>
-        <div class="chat-bubble mb-2">Mensaje 2</div>
-        <div class="chat-bubble mb-2">Mensaje 3</div>
-        <div class="alerta mb-2">⚠️ Alerta o información importante</div>
-        <div class="escribir">
-          <textarea class="form-control" rows="3" placeholder="Escribe un mensaje..."></textarea>
-        </div>
-      </aside>
+    <aside class="col-md-3 p-3 bg-claro text-start d-flex flex-column justify-content-end overflow-auto">
+    <div id="mensajes">
+      <!-- Aquí se cargarán los mensajes con PHP -->
+      <?php include 'obtener_mensajes.php'; ?>
+    </div>
 
-      <!-- Zona central -->
+    <!-- Formulario para enviar mensaje -->
+    <form action="enviar_mensaje.php" method="POST" class="escribir mt-3">
+      <textarea class="form-control" name="mensaje" rows="3" placeholder="Escribe un mensaje..." required></textarea>
+      <button type="submit" class="btn btn-primary mt-2">Enviar</button>
+    </form>
+  </aside>
       <main class="col-md-6 p-4 overflow-auto">
         <div class="container my-5">
             <h2 class="text-center mb-4">Reports</h2>
@@ -115,6 +113,9 @@
 
     </div>
   </div>
+  <!-- Asegúrate de que el script esté enlazado correctamente -->
+
+
 
   <!-- Footer -->
   <footer class="text-center bg-rosa-suave py-2 border-top border-danger">

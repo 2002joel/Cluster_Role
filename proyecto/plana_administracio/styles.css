@@ -1,69 +1,62 @@
+/* Estilos generales */
 body {
-    font-family: 'Georgia', serif;
-    background-color: #f5eaea;
-    color: #3d1f1f;
-  }
-  
-  .bg-claro {
-    background-color: #fff6f4;
-  }
-  
-  .bg-rosa-suave {
-    background-color: #fbe3db;
-  }
-  
-  .titulo {
-    font-family: 'Cinzel', serif;
-    color: #7b2c2c;
-    font-size: 1.8rem;
-  }
-  
-  .chat-bubble {
-    background-color: #f3d5d5;
-    padding: 10px;
-    border-radius: 15px;
-    box-shadow: 1px 1px 5px rgba(0, 0, 0, 0.1);
-    font-size: 0.9rem;
-    color: #3d1f1f;
-  }
-  
-  .alerta {
-    background-color: #ffdfdf;
-    padding: 10px;
-    border: 1px solid #ff7b7b;
-    border-radius: 10px;
-    font-size: 0.85rem;
-    color: #7b2c2c;
-  }
-  
-  .banner {
-    height: 150px;
-    background-color: #ffc;
-    border-radius: 10px;
-    background-size: cover;
-    background-position: center;
-  }
-  
-  .actualizacion, .versiones {
-    background-color: #fff0f0;
-    border: 1px solid #d3a4a4;
-    border-radius: 10px;
-  }
-  
-  h2, h3 {
-    color: #7b2c2c;
-  }
-  .right-panel {
-    display: flex;
-    flex-direction: column;
-    justify-content: space-between;
-    height: 100%;
-  }
-  .group-box {
-    flex: 1 1 50%; /* Cada div ocupará un 33% del contenedor */
-    margin-bottom: 1rem;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-  }
+  font-family: Arial, sans-serif;
+  margin: 0;
+  padding: 0;
+  background-color: #f4f4f9;
+}
+
+.chat-container {
+  padding: 10px;
+  max-height: 400px;
+  overflow-y: auto;
+  border-top: 1px solid #ddd;
+}
+
+.mensaje {
+  background-color: #f1f1f1;
+  padding: 10px;
+  border-radius: 5px;
+  margin-bottom: 10px;
+  width: fit-content;
+}
+
+.mensaje strong {
+  font-weight: bold;
+}
+
+.mensaje p {
+  margin: 0;
+  padding: 0;
+}
+
+.mensaje span {
+  font-size: 0.8em;
+  color: gray;
+}
+
+.escribir {
+  margin-top: 20px;
+}
+
+.escribir textarea {
+  width: 100%;
+  border-radius: 5px;
+  padding: 10px;
+  border: 1px solid #ddd;
+}
+
+.escribir button {
+  width: 100%;
+  padding: 10px;
+  background-color: #007bff;
+  color: white;
+  border: none;
+  border-radius: 5px;
+}
+
+.escribir button:hover {
+  background-color: #0056b3;
+}
+
   

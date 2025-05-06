@@ -33,15 +33,18 @@
     <div class="row vh-100">
 
       <!-- Sidebar izquierda -->
-      <aside class="col-md-3 p-3 bg-claro text-end d-flex flex-column justify-content-end overflow-auto">
-        <div class="chat-bubble mb-2">Mensaje 1</div>
-        <div class="chat-bubble mb-2">Mensaje 2</div>
-        <div class="chat-bubble mb-2">Mensaje 3</div>
-        <div class="alerta mb-2">⚠️ Alerta o información importante</div>
-        <div class="escribir">
-          <textarea class="form-control" rows="3" placeholder="Escribe un mensaje..."></textarea>
-        </div>
-      </aside>
+      <aside class="col-md-3 p-3 bg-claro text-start d-flex flex-column justify-content-end overflow-auto">
+    <div id="mensajes">
+      <!-- Aquí se cargarán los mensajes con PHP -->
+      <?php include 'obtener_mensajes.php'; ?>
+    </div>
+
+    <!-- Formulario para enviar mensaje -->
+    <form action="enviar_mensaje.php" method="POST" class="escribir mt-3">
+      <textarea class="form-control" name="mensaje" rows="3" placeholder="Escribe un mensaje..." required></textarea>
+      <button type="submit" class="btn btn-primary mt-2">Enviar</button>
+    </form>
+  </aside>
 
       <!-- Zona central -->
       <main class="col-md-6 p-4 overflow-auto">
@@ -63,47 +66,46 @@
         </section>
       </main>
 
-      <!-- Panel derecho -->
-      <aside class="col-md-3 p-3 bg-claro d-flex flex-column justify-content-between align-items-stretch overflow-auto right-panel">
-        <!-- Caja para Grupos -->
-        <div class="group-box">
-          <h3 class="text-center">Grupos</h3>
-          <div class="card">
-            <div class="card-body">
-              <ul class="list-unstyled">
-                <li>Grupo 1</li>
-                <li>Grupo 2</li>
-              </ul>
-            </div>
-          </div>
-        </div>
+   <!-- Panel derecho -->
+<aside class="col-md-3 p-3 bg-claro d-flex flex-column justify-content-between align-items-stretch overflow-auto right-panel">
 
-        <!-- Caja para Personas Relevantes -->
-        <div class="group-box">
-          <h3 class="text-center">Personas Relevantes</h3>
-          <div class="card">
-            <div class="card-body">
-              <ul class="list-unstyled">
-                <li>Persona 1</li>
-                <li>Persona 2</li>
-              </ul>
-            </div>
-          </div>
-        </div>
+<!-- Caja para Grupos -->
+<div class="group-box">
+  <h3 class="text-center">Grupos</h3>
+  <div class="card">
+    <div class="card-body">
+      <ul class="list-unstyled" id="lista-grupos">
+        <?php include 'datos_grupos.php'; ?>
+      </ul>
+    </div>
+  </div>
+</div>
 
-        <!-- Caja para Amigos -->
-        <div class="group-box">
-          <h3 class="text-center">Amigos</h3>
-          <div class="card">
-            <div class="card-body">
-              <ul class="list-unstyled">
-                <li>Amigo 1</li>
-                <li>Amigo 2</li>
-              </ul>
-            </div>
-          </div>
-        </div>
-      </aside>
+<!-- Caja para Personas Relevantes -->
+<div class="group-box">
+  <h3 class="text-center">Personas Relevantes</h3>
+  <div class="card">
+    <div class="card-body">
+      <ul class="list-unstyled" id="lista-relevantes">
+        <?php include 'datos_relevantes.php'; ?>
+      </ul>
+    </div>
+  </div>
+</div>
+
+<!-- Caja para Amigos -->
+<div class="group-box">
+  <h3 class="text-center">Amigos</h3>
+  <div class="card">
+    <div class="card-body">
+      <ul class="list-unstyled" id="lista-amigos">
+        <?php include 'datos_amigos.php'; ?>
+      </ul>
+    </div>
+  </div>
+</div>
+
+</aside>
 
     </div>
   </div>
