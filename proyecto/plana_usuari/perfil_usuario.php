@@ -63,14 +63,7 @@
   </aside>
 
   <main class="col-md-6 p-4">
-  <div class="banner mb-3"  >
-    <img src="/Cluster_Role/proyecto/foto/photos/foto_update.png" width ="100%" height ="100%" alt="">
-  </div>
 
-  <section class="versiones p-3 border rounded" style="max-height: 300px; overflow-y: auto;">
-    <h2>Historial de Versiones</h2>
-    <?php include 'mostrar_versiones.php'; ?>
-  </section>
 </main>
 
 
@@ -95,9 +88,7 @@
 
 <!-- Caja para Personas Relevantes -->
 <div class="group-box">
-<h3 class="text-center">Personas Relevantes</h3>
-</a>
- 
+  <h3 class="text-center">Personas Relevantes</h3>
   <div class="card">
     <div class="card-body">
       <ul class="list-unstyled" id="lista-relevantes">
@@ -109,9 +100,7 @@
 
 <!-- Caja para Amigos -->
 <div class="group-box">
-  <a href="ver_amigos.php" target="_blank">
-  <button><h3 class="text-center">Amigos</h3></button>
-</a>
+  <h3 class="text-center">Amigos</h3>
   <div class="card">
     <div class="card-body">
       <ul class="list-unstyled" id="lista-amigos">
@@ -133,5 +122,3 @@
 
 </body>
 </html>
-
-

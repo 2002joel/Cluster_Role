@@ -63,14 +63,29 @@
   </aside>
 
   <main class="col-md-6 p-4">
-  <div class="banner mb-3"  >
-    <img src="/Cluster_Role/proyecto/foto/photos/foto_update.png" width ="100%" height ="100%" alt="">
+
+  <!-- Caja de amigos -->
+  <div class="mb-4 p-3 border rounded">
+    <h5>👥 Tus amigos</h5>
+    <?php include 'obtener_amigos.php'; ?>
   </div>
 
-  <section class="versiones p-3 border rounded" style="max-height: 300px; overflow-y: auto;">
-    <h2>Historial de Versiones</h2>
-    <?php include 'mostrar_versiones.php'; ?>
-  </section>
+  <!-- Caja de búsqueda -->
+  <div class="p-3 border rounded">
+    <h5>🔍 Buscar usuarios</h5>
+    <form method="POST" action="">
+      <input type="text" name="buscar" placeholder="Buscar por nombre" class="form-control mb-2" required>
+      <button type="submit" class="btn btn-primary">Buscar</button>
+    </form>
+    <div class="mt-3">
+      <?php
+        if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST["buscar"])) {
+          include 'buscar_usuarios.php';
+        }
+      ?>
+    </div>
+  </div>
+
 </main>
 
 
@@ -95,9 +110,7 @@
 
 <!-- Caja para Personas Relevantes -->
 <div class="group-box">
-<h3 class="text-center">Personas Relevantes</h3>
-</a>
- 
+  <h3 class="text-center">Personas Relevantes</h3>
   <div class="card">
     <div class="card-body">
       <ul class="list-unstyled" id="lista-relevantes">
@@ -109,9 +122,7 @@
 
 <!-- Caja para Amigos -->
 <div class="group-box">
-  <a href="ver_amigos.php" target="_blank">
-  <button><h3 class="text-center">Amigos</h3></button>
-</a>
+  <h3 class="text-center">Amigos</h3>
   <div class="card">
     <div class="card-body">
       <ul class="list-unstyled" id="lista-amigos">
@@ -133,5 +144,3 @@
 
 </body>
 </html>
-
-

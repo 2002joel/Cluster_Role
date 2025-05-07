@@ -2,8 +2,16 @@
 session_start();
 include 'conexion.php';
 
-if (!isset($_SESSION['id_user'])) {
-  die("No autorizado");
+// Tiempo de inactividad máximo en segundos (por ejemplo, 15 minutos)
+$tiempo_inactividad = 900;  // 900 segundos = 15 minutos
+
+// Verifica si ya existe la última actividad en la sesión
+if (isset($_SESSION['LAST_ACTIVITY']) && (time() - $_SESSION['LAST_ACTIVITY'] > $tiempo_inactividad)) {
+    // Si ha pasado más tiempo que el permitido, destruye la sesión
+    session_unset();    // Elimina todas las variables de sesión
+    session_destroy();  // Destruye la sesión
+    header("Location: login.php?mensaje=sesion_caducada"); // Redirige al login o página de aviso
+    exit();
 }
 
 $id_user = $_SESSION['id_user'];

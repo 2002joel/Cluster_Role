@@ -22,7 +22,7 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
     $hashed_password = password_hash($password, PASSWORD_DEFAULT);
     echo "🔐 Hash generado: $hashed_password<br>"; // SOLO PARA PRUEBA
 
-    $stmt = $conn->prepare("SELECT * FROM users WHERE user_name = ? OR email = ? LIMIT 1");
+    $stmt = $conn->prepare("SELECT * FROM usuarios WHERE user_name = ? OR email = ? LIMIT 1");
     $stmt->bind_param("ss", $username, $email);
     $stmt->execute();
     $result = $stmt->get_result();
@@ -30,12 +30,12 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
     if ($result->num_rows > 0) {
         echo "❌ El nombre de usuario o correo electrónico ya están en uso.";
     } else {
-        $stmt = $conn->prepare("INSERT INTO users (user_name, email, contraseña) VALUES (?, ?, ?)");
+        $stmt = $conn->prepare("INSERT INTO usuarios (user_name, email, contraseña) VALUES (?, ?, ?)");
         $stmt->bind_param("sss", $username, $email, $hashed_password);
 
         if ($stmt->execute()) {
             echo " Usuario administrador autenticado. Redirigiendo...";
-            header("Location: /Cluste_Role/proyecto/login/login.html");
+            header("Location: /Cluste_Role/proyecto/login/login.php");
             exit();
         } else {
             echo "❌ Error al registrar el usuario.";
