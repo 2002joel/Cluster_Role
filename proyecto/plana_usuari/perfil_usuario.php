@@ -61,10 +61,10 @@
       <button type="submit" class="btn btn-primary mt-2">Enviar</button>
     </form>
   </aside>
-
   <main class="col-md-6 p-4">
 
-</main>
+    <iframe src="detalle_usuario.php?id=<?php echo $_GET['id'];?>" frameborder="0" width="100%" height="500px"></iframe>
+  </main>
 
 
 
