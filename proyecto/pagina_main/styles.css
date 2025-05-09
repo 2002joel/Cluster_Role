@@ -92,3 +92,35 @@ body, html {
   font-size: 0.9rem;
   color: #ddd;
 }
+
+footer {
+  background-color: #e5c7c7;
+  color: #4b1e1e;
+  font-family: 'Georgia', serif;
+  padding: 2rem 0;
+}
+
+.footer-title {
+  font-size: 2.5rem;
+  font-weight: bold;
+  text-align: center;
+  margin-bottom: 1.5rem;
+}
+
+.footer-title span {
+  font-family: 'Papyrus', fantasy;
+}
+
+.social-icons i {
+  font-size: 1.5rem;
+  margin-right: 0.5rem;
+}
+
+.social-icons a {
+  text-decoration: none;
+  color: inherit;
+}
+
+.social-icons a:hover {
+  color: #b30000;
+}
