@@ -35,7 +35,7 @@
       <i class="bi bi-gear-fill"></i>
     </button>
     <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="dropdownMenuButton">
-      <li><a class="dropdown-item" href="#">Usuario</a></li>
+      <li><a class="dropdown-item" href="configuracio_usuaris.php">Usuario</a></li>
       <!-- Puedes añadir más opciones aquí -->
     </ul>
   </div>
@@ -61,11 +61,13 @@
       <button type="submit" class="btn btn-primary mt-2">Enviar</button>
     </form>
   </aside>
-  
-  <main class="col-md-6 p-4">
 
-    <iframe src="detalle_usuario.php?id=<?php echo $_GET['id'];?>" frameborder="0" width="100%" height="500px"></iframe>
-  </main>
+  <main class="col-md-6 p-4">
+  <div class="mb-4 p-3 border rounded">
+    <h5>👥 Tus amigos</h5>
+    <?php include 'perfil.php'; ?>
+  </div>
+</main>
 
 
 
@@ -89,7 +91,9 @@
 
 <!-- Caja para Personas Relevantes -->
 <div class="group-box">
-  <h3 class="text-center">Personas Relevantes</h3>
+<h3 class="text-center">Personas Relevantes</h3>
+</a>
+ 
   <div class="card">
     <div class="card-body">
       <ul class="list-unstyled" id="lista-relevantes">
@@ -101,7 +105,9 @@
 
 <!-- Caja para Amigos -->
 <div class="group-box">
-  <h3 class="text-center">Amigos</h3>
+  <a href="ver_amigos.php" target="_blank">
+  <button><h3 class="text-center">Amigos</h3></button>
+</a>
   <div class="card">
     <div class="card-body">
       <ul class="list-unstyled" id="lista-amigos">
@@ -123,3 +129,5 @@
 
 </body>
 </html>
+
+

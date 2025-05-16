@@ -2,7 +2,7 @@
 include 'conexion.php';
 
 $id = $_GET['id'];
-echo "El ID es: " . $id;
+
 
 // Verifica si ya votó por este usuario
 $voto_cookie = "voto_usuario_" . $id;
@@ -23,10 +23,10 @@ if (isset($_GET['accion']) && !isset($_COOKIE[$voto_cookie])) {
 }
 
 // Obtener datos del usuario
-$stmt = $conn->prepare("SELECT user_name, creation_date, positivo, negativo, profile_photo FROM usuarios WHERE id_user = ?");
+$stmt = $conn->prepare("SELECT user_name, creation_date, estado, positivo, negativo, profile_photo FROM usuarios WHERE id_user = ?");
 $stmt->bind_param("i", $id);
 $stmt->execute();
-$stmt->bind_result($nombre, $fecha, $likes, $dislikes, $foto);
+$stmt->bind_result($nombre, $fecha, $des, $likes, $dislikes, $foto);
 $stmt->fetch();
 $stmt->close();
 
@@ -53,15 +53,16 @@ if (!isset($nombre)) {
   
   <h2><?php echo htmlspecialchars($nombre); ?></h2>
   <p>Fecha de creación: <?php echo htmlspecialchars($fecha); ?></p>
+  <p><?php echo htmlspecialchars($des); ?></p>
   <p>👍 Likes: <?php echo $likes; ?> | 👎 Dislikes: <?php echo $dislikes; ?></p>
 
   <div class="reaction-buttons" style="margin-top: 20px;">
     <?php if (!isset($_COOKIE[$voto_cookie])): ?>
       <a href="?id=<?php echo $id; ?>&accion=like">
-        <img src="like.png" alt="Like" style="width: 40px; margin-right: 20px;">
+        <img src="../foto/icons/like.png" alt="Like" style="width: 40px; margin-right: 20px;">
       </a>
       <a href="?id=<?php echo $id; ?>&accion=dislike">
-        <img src="dislike.png" alt="Dislike" style="width: 40px;">
+        <img src="../foto/icons/dislike.png" alt="Dislike" style="width: 40px;">
       </a>
     <?php else: ?>
       <p>Ya has votado (<?php echo $_COOKIE[$voto_cookie]; ?>).</p>

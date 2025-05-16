@@ -35,7 +35,7 @@
       <i class="bi bi-gear-fill"></i>
     </button>
     <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="dropdownMenuButton">
-      <li><a class="dropdown-item" href="#">Usuario</a></li>
+      <li><a class="dropdown-item" href="configuracio_usuaris.php">Usuario</a></li>
       <!-- Puedes añadir más opciones aquí -->
     </ul>
   </div>
