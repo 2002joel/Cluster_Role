@@ -26,7 +26,7 @@ $conn->close();
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Cluster Role - Layout Discord</title>
+  <title>Cluster Role - Updates</title>
   <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
   <link rel="stylesheet" href="styles.css" />
 
@@ -59,14 +59,12 @@ $conn->close();
 
       <main class="col-md-6 p-4 overflow-auto">
         <div class="container my-5">
-            <h2 class="text-center mb-4">Reports</h2>
-
-            <div id="tablaReportes"></div>
             
-  
-        
-  
-          </div>
+            <h2 class="text-center my-4">Updates</h2>
+            <div id="tablaUpdates"></div>
+            <div class="text-center mt-4">
+  <a href="formulari_update.php" class="btn btn-success">Fer Update</a>
+</div>
         
       </main>
 
@@ -75,21 +73,21 @@ $conn->close();
 
 <!-- Caja para Grupos -->
 <div class="group-box d-flex justify-content-center align-items-center caja">
-<a href="updates.php" >
+<a href="grupos.php" target="_blank">
   <button><h3 class="text-center">Updates</h3></button>
 </a>
 </div>
 
 <!-- Caja para Amigos -->
 <div class="group-box d-flex justify-content-center align-items-center caja">
-  <a href="ver_amigos.php" >
+  <a href="ver_amigos.php" target="_blank">
   <button><h3 class="text-center">Grups</h3></button>
 </a>
 </div>
 
 <!-- Caja para Amigos -->
 <div class="group-box d-flex justify-content-center align-items-center caja">
-  <a href="usuaris.php">
+  <a href="usuaris.php" target="_blank">
   <button><h3 class="text-center">Usuaris</h3></button>
 </a>
 </div>
@@ -108,68 +106,42 @@ $conn->close();
 
 </body>
 <script>
-// function marcarResuelto(checkbox, id, celdaFecha) {
-//     if (!checkbox.checked) return;
 
-//     if (!confirm("¿Marcar este reporte como resuelto?")) {
-//         checkbox.checked = false;
-//         return;
-//     }
+function actualizarUpdates() {
+  fetch("update_log.php")
+    .then(res => res.json())
+    .then(data => {
+      const contenedor = document.getElementById("tablaUpdates");
+      contenedor.innerHTML = ""; // limpiar
 
-//     fetch('resolver.php', {
-//         method: 'POST',
-//         headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
-//         body: 'id_report=' + encodeURIComponent(id)
-//     })
-//     .then(response => response.json())
-//     .then(data => {
-//         if (data.success) {
-//             checkbox.disabled = true;
-//             celdaFecha.textContent = data.resolved_date;
-//         } else {
-//             alert("Hubo un error al actualizar.");
-//             checkbox.checked = false;
-//         }
-//     })
-//     .catch(() => {
-//         alert("Error de red.");
-//         checkbox.checked = false;
-//     });
-// }
+      const tabla = document.createElement("table");
+      tabla.classList.add("table", "table-bordered", "table-striped");
+      tabla.innerHTML = `
+        <thead class="table-light">
+          <tr>
+            <th>ID Update</th>
+            <th>Títol</th>
+            <th>Versió</th>
+            <th>Explicació Curta</th>
+            <th>Explicació Llarga</th>
+            <th>Data Update</th>
+          </tr>
+        </thead>
+        <tbody></tbody>
+      `;
 
-  function actualizarReportes() {
-      fetch("reporte.php")
-        .then(res => res.json())
-        .then(data => {
-          const contenedor = document.getElementById("tablaReportes");
-          contenedor.innerHTML = ""; // limpiar
+      const tbody = tabla.querySelector("tbody");
 
-          const tabla = document.createElement("table");
-          tabla.innerHTML = `
-            <tr>
-              <th>ID Reporte</th>
-              <th>Usuario que Reporta</th>
-              <th>Usuario Reportado</th>
-              <th>Motivo</th>
-              <th>Explicación</th>
-              <th>Fecha Reporte</th>
-              <th>Resuelto</th>
-              <th>Fecha Resolución</th>
-            </tr>`;
-
-          data.forEach(r => {
-            const fila = document.createElement("tr");
-
-            fila.innerHTML = `
-              <td>${r.id_report}</td>
-              <td>${r.reportador}</td>
-              <td>${r.reportado}</td>
-              <td>${r.motive}</td>
-              <td>${r.explanation}</td>
-              <td>${r.report_date}</td>
-              <td>${r.resolved}</td>       
-              <td>${r.resolved_date}</td>`;
-              tbody.appendChild(fila);
+      data.forEach(u => {
+        const fila = document.createElement("tr");
+        fila.innerHTML = `
+          <td>${u.id_update}</td>
+          <td>${u.title}</td>
+          <td>${u.version}</td>
+          <td>${u.short_explanation}</td>
+          <td>${u.long_explanation}</td>
+          <td>${u.date}</td>`;
+        tbody.appendChild(fila);
       });
 
       contenedor.appendChild(tabla);
@@ -177,13 +149,14 @@ $conn->close();
     .catch(error => {
       console.error("Error al cargar updates:", error);
     });
-    }
+}
 
-    // Llamada inicial
-    actualizarReportes();
+// Llamada inicial
+actualizarUpdates();
 
-    // Recarga periódica cada 5 segundos
-    setInterval(actualizarReportes, 5000);
+// Recarga automática cada 5 segundos (opcional)
+setInterval(actualizarUpdates, 5000);
+
+
 </script>
-
 </html>
