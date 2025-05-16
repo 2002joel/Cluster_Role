@@ -14,6 +14,7 @@ if (isset($_SESSION['LAST_ACTIVITY']) && (time() - $_SESSION['LAST_ACTIVITY'] > 
     exit();
 }
 
+
 $id_user = $_SESSION['id_user'];
 $mensaje = trim($_POST['mensaje'] ?? '');
 
@@ -30,5 +31,6 @@ if ($mensaje !== '') {
   $stmt2->execute();
 }
 
-header("Location: admin.php");
+header("Location: usuario.php");
+$_SESSION['LAST_ACTIVITY'] = time();
 exit;

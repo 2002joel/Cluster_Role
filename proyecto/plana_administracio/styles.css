@@ -13,6 +13,14 @@ body {
   border-top: 1px solid #ddd;
 }
 
+ .chat-bubble {
+    background-color: #f3d5d5;
+    padding: 10px;
+    border-radius: 15px;
+    box-shadow: 1px 1px 5px rgba(0, 0, 0, 0.1);
+    font-size: 0.9rem;
+    color: #3d1f1f;
+  }
 .mensaje {
   background-color: #f1f1f1;
   padding: 10px;
