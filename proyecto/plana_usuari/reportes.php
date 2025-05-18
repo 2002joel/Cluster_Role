@@ -36,7 +36,7 @@
     </button>
     <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="dropdownMenuButton">
       <li><a class="dropdown-item" href="configuracio_usuaris.php">Usuario</a></li>
-      <li><a class="dropdown-item" href="reportes.php">Reportes</a></li>
+      <li><a class="dropdown-item" href="configuracio_usuaris.php">Reportes</a></li>
       <!-- Puedes añadir más opciones aquí -->
     </ul>
   </div>
@@ -49,7 +49,7 @@
     <div class="row vh-100">
 
       <!-- Sidebar izquierda -->
-      <aside class="col-md-3 p-3 bg-claro text-start d-flex flex-column justify-content-start overflow-auto">
+      <aside class="col-md-3 p-3 bg-claro text-start d-flex flex-column justify-content-end overflow-auto">
       <div id="mensajes" style="overflow-y: scroll; max-height: 400px;">
   <!-- Aquí se cargarán los mensajes con PHP -->
   <?php include 'obtener_mensajes.php'; ?>
@@ -64,14 +64,49 @@
   </aside>
 
   <main class="col-md-6 p-4">
-  <div class="banner mb-3"  >
-    <img src="/Cluster_Role/proyecto/foto/photos/foto_update.png" width ="100%" height ="100%" alt="">
-  </div>
+<main class="col-md-6 p-4">
+    <h3>Reportar Usuari</h3>
+    <form action="reportar.php" method="POST">
+        <div class="mb-3">
+            <label for="id_user_reported" class="form-label">Selecciona un usuari per reportar:</label>
+            <select name="id_user_reported" id="id_user_reported" class="form-select" required>
+                <option value="">-- Selecciona un usuari --</option>
+                <?php
+                session_start();
+                require_once 'conexion.php';
 
-  <section class="versiones p-3 border rounded" style="max-height: 300px; overflow-y: auto;">
-    <h2>Historial de Versiones</h2>
-    <?php include 'mostrar_versiones.php'; ?>
-  </section>
+                $idActual = $_SESSION['id_user'] ?? 0;
+
+                $stmt = $conn->prepare("SELECT id_user, user_name FROM usuarios WHERE id_user != ?");
+                $stmt->bind_param("i", $idActual);
+                $stmt->execute();
+                $result = $stmt->get_result();
+
+                while ($row = $result->fetch_assoc()) {
+                    echo '<option value="' . $row['id_user'] . '">' . htmlspecialchars($row['user_name']) . '</option>';
+                }
+
+                $stmt->close();
+                $conn->close();
+                ?>
+            </select>
+        </div>
+
+        <div class="mb-3">
+            <label for="motive" class="form-label">Motiu del report:</label>
+            <input type="text" id="motive" name="motive" class="form-control" required>
+        </div>
+
+        <div class="mb-3">
+            <label for="explanation" class="form-label">Explicació:</label>
+            <textarea id="explanation" name="explanation" rows="4" class="form-control" required></textarea>
+        </div>
+
+        <button type="submit" class="btn btn-danger">Enviar report</button>
+    </form>
+</main>
+
+
 </main>
 
 
@@ -134,5 +169,3 @@
 
 </body>
 </html>
-
-

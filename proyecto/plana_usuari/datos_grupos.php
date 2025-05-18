@@ -1,7 +1,12 @@
 <?php
 include 'conexion.php'; // Incluye la conexión a la base de datos
 
-$id_usuario = $_SESSION['id_user']; // Obtiene el ID del usuario desde la sesión
+// Comprobar si la sesión ya está iniciada
+if (session_status() === PHP_SESSION_NONE) {
+    session_start();
+}
+
+$id_usuario = $_SESSION['id_user'] ?? 0; // Obtiene el ID del usuario desde la sesión o 0 si no existe
 
 // Consulta SQL para obtener los últimos 5 grupos a los que el usuario está asignado
 $query = "SELECT g.group_name 
@@ -22,7 +27,9 @@ if ($result->num_rows === 0) {
 } else {
     echo "<ul>";
     while ($row = $result->fetch_assoc()) {
-        echo "<li>" . htmlspecialchars($row['group_name']) . "</li>"; // Muestra el nombre de cada grupo
+        // Evitar null en htmlspecialchars con operador ?? ''
+        $group_name = htmlspecialchars($row['group_name'] ?? '');
+        echo "<li>" . $group_name . "</li>"; // Muestra el nombre de cada grupo
     }
     echo "</ul>";
 }

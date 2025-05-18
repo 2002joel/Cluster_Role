@@ -35,8 +35,7 @@
       <i class="bi bi-gear-fill"></i>
     </button>
     <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="dropdownMenuButton">
-      <li><a class="dropdown-item" href="configuracio_usuaris.php">Usuario</a></li>
-      <li><a class="dropdown-item" href="reportes.php">Reportes</a></li>
+      <li><a class="dropdown-item" href="#">Usuario</a></li>
       <!-- Puedes añadir más opciones aquí -->
     </ul>
   </div>
@@ -49,7 +48,7 @@
     <div class="row vh-100">
 
       <!-- Sidebar izquierda -->
-      <aside class="col-md-3 p-3 bg-claro text-start d-flex flex-column justify-content-start overflow-auto">
+      <aside class="col-md-3 p-3 bg-claro text-start d-flex flex-column justify-content-end overflow-auto">
       <div id="mensajes" style="overflow-y: scroll; max-height: 400px;">
   <!-- Aquí se cargarán los mensajes con PHP -->
   <?php include 'obtener_mensajes.php'; ?>
@@ -63,17 +62,76 @@
     </form>
   </aside>
 
-  <main class="col-md-6 p-4">
-  <div class="banner mb-3"  >
-    <img src="/Cluster_Role/proyecto/foto/photos/foto_update.png" width ="100%" height ="100%" alt="">
-  </div>
+ 
 
-  <section class="versiones p-3 border rounded" style="max-height: 300px; overflow-y: auto;">
-    <h2>Historial de Versiones</h2>
-    <?php include 'mostrar_versiones.php'; ?>
-  </section>
+
+<main class="col-md-6 p-4">
+  <h2>Crear nuevo grupo</h2>
+
+  <form id="crearGrupoForm" action="crear_grupo.php" method="POST" enctype="multipart/form-data">
+    <div class="mb-3">
+      <label for="group_name" class="form-label">Nombre del grupo</label>
+      <input type="text" class="form-control" id="group_name" name="group_name" required>
+    </div>
+
+    <div class="mb-3">
+      <label for="profile_photo" class="form-label">Foto del grupo</label>
+      <input type="file" class="form-control" id="profile_photo" name="profile_photo" accept="image/*">
+    </div>
+
+    <div class="mb-3">
+      <label class="form-label">Selecciona amigos para añadir al grupo</label>
+      <div class="form-check" id="listaAmigos">
+        <?php
+     
+
+        include 'conexion.php';
+
+        $id_user = $_SESSION['id_user'] ?? null;
+
+        if ($id_user) {
+          // Obtener ID de amigos
+          $stmt = $conn->prepare("SELECT id_amigo FROM usuario_amigos WHERE id_usuario = ?");
+          $stmt->bind_param("i", $id_user);
+          $stmt->execute();
+          $result = $stmt->get_result();
+
+          $amigos_ids = [];
+          while ($row = $result->fetch_assoc()) {
+              $amigos_ids[] = $row['id_amigo'];
+          }
+          $stmt->close();
+
+          if (count($amigos_ids) > 0) {
+              // Construir placeholders y buscar datos de los amigos
+              $placeholders = implode(',', array_fill(0, count($amigos_ids), '?'));
+              $types = str_repeat('i', count($amigos_ids));
+              $stmt = $conn->prepare("SELECT id_user, user_name FROM usuarios WHERE id_user IN ($placeholders)");
+              $stmt->bind_param($types, ...$amigos_ids);
+              $stmt->execute();
+              $result = $stmt->get_result();
+
+              while ($amigo = $result->fetch_assoc()) {
+                  echo '<div class="form-check">';
+                  echo '<input class="form-check-input" type="checkbox" name="amigos[]" value="' . $amigo['id_user'] . '" id="amigo' . $amigo['id_user'] . '">';
+                  echo '<label class="form-check-label" for="amigo' . $amigo['id_user'] . '">' . htmlspecialchars($amigo['user_name']) . '</label>';
+                  echo '</div>';
+              }
+
+              $stmt->close();
+          } else {
+              echo '<p>No tienes amigos disponibles.</p>';
+          }
+        } else {
+          echo '<p>Debes iniciar sesión.</p>';
+        }
+        ?>
+      </div>
+    </div>
+
+    <button type="submit" class="btn btn-primary">Crear grupo</button>
+  </form>
 </main>
-
 
 
    <!-- Panel derecho -->
@@ -96,9 +154,7 @@
 
 <!-- Caja para Personas Relevantes -->
 <div class="group-box">
-<h3 class="text-center">Personas Relevantes</h3>
-</a>
- 
+  <h3 class="text-center">Personas Relevantes</h3>
   <div class="card">
     <div class="card-body">
       <ul class="list-unstyled" id="lista-relevantes">
@@ -110,9 +166,7 @@
 
 <!-- Caja para Amigos -->
 <div class="group-box">
-  <a href="ver_amigos.php" target="_blank">
-  <button><h3 class="text-center">Amigos</h3></button>
-</a>
+  <h3 class="text-center">Amigos</h3>
   <div class="card">
     <div class="card-body">
       <ul class="list-unstyled" id="lista-amigos">
@@ -134,5 +188,3 @@
 
 </body>
 </html>
-
-

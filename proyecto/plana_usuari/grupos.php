@@ -62,9 +62,88 @@
     </form>
   </aside>
 
-  <main class="col-md-6 p-4">
+ 
 
+<main class="col-md-6 p-4">
+    <?php include 'mirar_grupos.php'; ?>
+
+    <div class="d-flex gap-4 flex-wrap">
+        <?php
+        $idModificar = $_GET['modificar'] ?? null;
+        $totalGrupos = count($grupos);
+
+        foreach ($grupos as $grupo) {
+            $finfo = finfo_open(FILEINFO_MIME_TYPE);
+
+            if (!empty($grupo['profile_photo'])) {
+                $mime = finfo_buffer($finfo, $grupo['profile_photo']);
+                $fotoBase64 = base64_encode($grupo['profile_photo']);
+            } else {
+                $mime = 'image/png';
+                $fotoBase64 = '';
+            }
+
+            finfo_close($finfo);
+            $imgSrc = $fotoBase64 ? 'data:' . $mime . ';base64,' . $fotoBase64 : 'ruta/a/imagen_por_defecto.png';
+
+            $id_group = htmlspecialchars($grupo['id_group']);
+            $group_name = htmlspecialchars($grupo['group_name']);
+
+            echo '<div>';
+            echo '<a href="mirar_grupos.php?id=' . $id_group . '" class="text-decoration-none">';
+            echo '<div style="width: 150px; height: 150px; border: 2px solid #ccc; border-radius: 10px; overflow: hidden; display: flex; align-items: center; justify-content: center;">';
+            echo '<img src="' . $imgSrc . '" alt="' . $group_name . '" style="width: 100%; height: 100%; object-fit: cover;">';
+            echo '</div>';
+            echo '</a>';
+
+            echo '<div class="mt-2 d-flex justify-content-between">';
+            echo '<form action="grupos.php" method="get" style="margin-right: 5px;">';
+            echo '<input type="hidden" name="modificar" value="' . $id_group . '">';
+            echo '<button type="submit" class="btn btn-sm btn-warning">Modificar</button>';
+            echo '</form>';
+            echo '<form action="eliminar_grupo.php" method="post" onsubmit="return confirm(\'¿Seguro que quieres eliminar este grupo?\');">';
+            echo '<input type="hidden" name="id_group" value="' . $id_group . '">';
+            echo '<button type="submit" class="btn btn-sm btn-danger">Eliminar</button>';
+            echo '</form>';
+            echo '</div>';
+
+            // Mostrar el formulario de modificación si se pulsó
+            if ($idModificar == $id_group) {
+                echo '<form method="POST" action="modificar_grupo.php" enctype="multipart/form-data" class="mt-3">';
+                echo '<input type="hidden" name="id_group" value="' . $id_group . '">';
+                echo '<div class="mb-2">';
+                echo '<label class="form-label">Nuevo nombre:</label>';
+                echo '<input type="text" name="group_name" class="form-control" value="' . $group_name . '" required>';
+                echo '</div>';
+                echo '<div class="mb-2">';
+                echo '<label class="form-label">Nueva imagen (opcional):</label>';
+                echo '<input type="file" name="profile_photo" class="form-control">';
+                echo '</div>';
+                echo '<button type="submit" class="btn btn-success btn-sm">Guardar cambios</button>';
+                echo '</form>';
+            }
+
+            echo '</div>';
+        }
+
+        // Cuadros "+" para crear nuevos grupos
+        for ($i = $totalGrupos; $i < 3; $i++) {
+            echo '<a href="creacion_grupos.php" class="text-decoration-none">';
+            echo '<div style="width: 150px; height: 150px; border: 2px dashed #aaa; border-radius: 10px; display: flex; align-items: center; justify-content: center; font-size: 72px; color: #aaa; font-weight: bold;">+</div>';
+            echo '</a>';
+        }
+        ?>
+    </div>
 </main>
+
+
+
+
+
+
+
+    
+
 
 
 
