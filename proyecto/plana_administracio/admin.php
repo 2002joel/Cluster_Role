@@ -146,6 +146,7 @@ $conn->close();
 
           const tabla = document.createElement("table");
           tabla.innerHTML = `
+          <thead class="table-light">
             <tr>
               <th>ID Reporte</th>
               <th>Usuario que Reporta</th>
@@ -155,7 +156,9 @@ $conn->close();
               <th>Fecha Reporte</th>
               <th>Resuelto</th>
               <th>Fecha Resolución</th>
-            </tr>`;
+            </tr>
+            </thead>
+        <tbody></tbody>`;
 
           data.forEach(r => {
             const fila = document.createElement("tr");

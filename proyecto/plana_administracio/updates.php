@@ -135,6 +135,7 @@ function actualizarUpdates() {
       data.forEach(u => {
         const fila = document.createElement("tr");
         fila.innerHTML = `
+        
           <td>${u.id_update}</td>
           <td>${u.title}</td>
           <td>${u.version}</td>
