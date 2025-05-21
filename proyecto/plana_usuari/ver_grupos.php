@@ -35,8 +35,7 @@
       <i class="bi bi-gear-fill"></i>
     </button>
     <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="dropdownMenuButton">
-      <li><a class="dropdown-item" href="configuracio_usuaris.php">Usuario</a></li>
-      <li><a class="dropdown-item" href="reportes.php">Reportes</a></li>
+      <li><a class="dropdown-item" href="#">Usuario</a></li>
       <!-- Puedes añadir más opciones aquí -->
     </ul>
   </div>
@@ -49,7 +48,7 @@
     <div class="row vh-100">
 
       <!-- Sidebar izquierda -->
-      <aside class="col-md-3 p-3 bg-claro text-start d-flex flex-column justify-content-start overflow-auto">
+      <aside class="col-md-3 p-3 bg-claro text-start d-flex flex-column justify-content-end overflow-auto">
       <div id="mensajes" style="overflow-y: scroll; max-height: 400px;">
   <!-- Aquí se cargarán los mensajes con PHP -->
   <?php include 'obtener_mensajes.php'; ?>
@@ -64,14 +63,21 @@
   </aside>
 
   <main class="col-md-6 p-4">
-  <div class="banner mb-3"  >
-    <img src="/Cluster_Role/proyecto/foto/photos/foto_update.png" width ="100%" height ="100%" alt="">
-  </div>
 
-  <section class="versiones p-3 border rounded" style="max-height: 300px; overflow-y: auto;">
-    <h2>Historial de Versiones</h2>
-    <?php include 'mostrar_versiones.php'; ?>
-  </section>
+<?php include 'cargar_grupo.php'; ?>
+<a href="crear_partida.php?id_group=9" target="_blank">
+  <button>Crear Partida</button>
+</a>
+
+
+<script>
+document.getElementById('crearPartidaBtn').addEventListener('click', () => {
+  // Abrimos una ventana nueva para elegir el mapa y crear la partida
+  window.open('crear_partida.php?id_group=<?= $id_group ?>', '_blank');
+});
+</script>
+
+
 </main>
 
 
@@ -81,7 +87,7 @@
 
 <!-- Caja para Grupos -->
 <div class="group-box">
-<a href="grupos.php" >
+<a href="grupos.php" target="_blank">
   <button><h3 class="text-center">Grupos</h3></button>
 </a>
 
@@ -96,9 +102,7 @@
 
 <!-- Caja para Personas Relevantes -->
 <div class="group-box">
-<h3 class="text-center">Personas Relevantes</h3>
-</a>
- 
+  <h3 class="text-center">Personas Relevantes</h3>
   <div class="card">
     <div class="card-body">
       <ul class="list-unstyled" id="lista-relevantes">
@@ -110,9 +114,7 @@
 
 <!-- Caja para Amigos -->
 <div class="group-box">
-  <a href="ver_amigos.php">
-  <button><h3 class="text-center">Amigos</h3></button>
-</a>
+  <h3 class="text-center">Amigos</h3>
   <div class="card">
     <div class="card-body">
       <ul class="list-unstyled" id="lista-amigos">
@@ -134,5 +136,3 @@
 
 </body>
 </html>
-
-

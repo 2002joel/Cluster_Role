@@ -90,7 +90,7 @@
             $group_name = htmlspecialchars($grupo['group_name']);
 
             echo '<div>';
-            echo '<a href="mirar_grupos.php?id=' . $id_group . '" class="text-decoration-none">';
+            echo '<a href="ver_grupos.php?id=' . $id_group . '" class="text-decoration-none">';
             echo '<div style="width: 150px; height: 150px; border: 2px solid #ccc; border-radius: 10px; overflow: hidden; display: flex; align-items: center; justify-content: center;">';
             echo '<img src="' . $imgSrc . '" alt="' . $group_name . '" style="width: 100%; height: 100%; object-fit: cover;">';
             echo '</div>';

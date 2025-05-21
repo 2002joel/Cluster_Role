@@ -116,7 +116,7 @@
 
 <!-- Caja para Grupos -->
 <div class="group-box">
-<a href="grupos.php" target="_blank">
+<a href="grupos.php" >
   <button><h3 class="text-center">Grupos</h3></button>
 </a>
 
@@ -145,7 +145,7 @@
 
 <!-- Caja para Amigos -->
 <div class="group-box">
-  <a href="ver_amigos.php" target="_blank">
+  <a href="ver_amigos.php">
   <button><h3 class="text-center">Amigos</h3></button>
 </a>
   <div class="card">

@@ -74,7 +74,7 @@
 
 <!-- Caja para Grupos -->
 <div class="group-box">
-<a href="grupos.php" target="_blank">
+<a href="grupos.php">
   <button><h3 class="text-center">Grupos</h3></button>
 </a>
 
