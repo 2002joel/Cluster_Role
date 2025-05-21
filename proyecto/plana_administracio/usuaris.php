@@ -26,31 +26,16 @@ $conn->close();
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Cluster Role - Layout Discord</title>
+  <title>Cluster Role - Usuaris</title>
   <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
   <link rel="stylesheet" href="styles.css" />
-  <style>
-    @font-face {
-  font-family: 'Folkard';
-  src: url('fonts/Folkard.ttf') format('truetype');
-}
 
-.titulo {
-  font-family: 'Folkard', cursive;
-  background: linear-gradient(to bottom, black 20%, #b30000 100%);
-  background-clip: text;                /* estándar /
-  -webkit-background-clip: text;        / para WebKit (Chrome, Safari) */
-  -webkit-text-fill-color: transparent;
-  text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.4);
-}
-  </style>
 </head>
 <body class="bg-light text-dark">
 
   <!-- Header -->
   <header class="bg-rosa-suave border-bottom border-danger py-3 px-4 d-flex justify-content-center align-items-center">
-    <div><span><a href="/Cluster_Role/proyecto/plana_administracio/admin.php" class="titulo fw-bold fs-2 text-center" style="text-decoration: none; color: white;">Cluster Role</a></span></div>
-  
+    <div class="titulo fw-bold fs-2">Cluster Role</div>
   </header>
 
 
@@ -74,14 +59,17 @@ $conn->close();
 
       <main class="col-md-6 p-4 overflow-auto">
         <div class="container my-5">
-            <h2 class="text-center mb-4">Reports</h2>
+               <h2 class="text-center my-4">Usuaris Banejats</h2>
+             <div class="mb-3">
+  <button class="btn btn-outline-danger me-2" onclick="actualizarUsuarios('baneados')">Mostrar BANEADOS</button>
+  <button class="btn btn-outline-success me-2" onclick="actualizarUsuarios('no_baneados')">Mostrar NO BANEADOS</button>
+  <button class="btn btn-outline-secondary" onclick="actualizarUsuarios('todos')">Mostrar TODOS</button>
+</div>
 
-            <div id="tablaReportes"></div>
-            
-  
-        
-  
-          </div>
+
+            <div style="overflow-y: auto; max-height: 400px;">
+              <div id="tablaUsuarios"></div>
+            </div>
         
       </main>
 
@@ -90,21 +78,21 @@ $conn->close();
 
 <!-- Caja para Grupos -->
 <div class="group-box d-flex justify-content-center align-items-center caja">
-<a href="updates.php" >
+<a href="updates.php">
   <button><h3 class="text-center">Updates</h3></button>
 </a>
 </div>
 
 <!-- Caja para Amigos -->
 <div class="group-box d-flex justify-content-center align-items-center caja">
-  <a href="grups.php" >
+  <a href="ver_amigos.php" >
   <button><h3 class="text-center">Grups</h3></button>
 </a>
 </div>
 
 <!-- Caja para Amigos -->
 <div class="group-box d-flex justify-content-center align-items-center caja">
-  <a href="usuaris.php">
+  <a href="usuaris.php" >
   <button><h3 class="text-center">Usuaris</h3></button>
 </a>
 </div>
@@ -118,64 +106,73 @@ $conn->close();
 
   <!-- Footer -->
   <footer class="text-center bg-rosa-suave py-2 border-top border-danger">
-    <span class="titulo">Cluster Role</span> © 2025 - Todos los derechos reservados
+    Cluster Role © 2025 - Todos los derechos reservados
   </footer>
 
 </body>
 <script>
+function actualizarUsuarios(filtro) {
+  let url = "usuarios.php";
 
-function actualizarReportes() {
-      fetch("reporte.php")
-        .then(res => res.json())
-        .then(data => {
-          const contenedor = document.getElementById("tablaReportes");
-          contenedor.innerHTML = ""; // limpiar
+  if (filtro === 'baneados') {
+    url += "?filtro=baneados";
+  } else if (filtro === 'no_baneados') {
+    url += "?filtro=no_baneados";
+  } // si es "todos", no se agrega nada
 
-          const tabla = document.createElement("table");
-          tabla.innerHTML = `
-            <tr>
-              <th>ID Reporte</th>
-              <th>Usuario que Reporta</th>
-              <th>Usuario Reportado</th>
-              <th>Motivo</th>
-              <th>Explicación</th>
-              <th>Fecha Reporte</th>
-              <th>Resuelto</th>
-              <th>Fecha Resolución</th>
-            </tr>`;
+  fetch(url)
+    .then(res => res.json())
+    .then(data => {
+      const contenedor = document.getElementById("tablaUsuarios");
+      contenedor.innerHTML = "";
 
-          data.forEach(r => {
-            const fila = document.createElement("tr");
+      const tabla = document.createElement("table");
+      tabla.classList.add("table", "table-bordered", "table-striped");
+      tabla.innerHTML = `
+        <thead class="table-light">
+          <tr>
+            <th>ID Usuari</th>
+            <th>Nom</th>
+            <th>Email</th>
+            <th>Data Creació</th>
+            <th>Descripció</th>
+            <th>Likes</th>
+            <th>Dislikes</th>
+            <th>Foto Perfil</th>
+            <th>Premium</th>
+          </tr>
+        </thead>
+        <tbody></tbody>
+      `;
 
-            fila.innerHTML = `
-              <td>${r.id_report}</td>
-              <td>${r.reportador}</td>
-              <td>${r.reportado}</td>
-              <td>${r.motive}</td>
-              <td>${r.explanation}</td>
-              <td>${r.report_date}</td>
-              <td></td>
-              <td>${r.resolved_date ?? "-"}</td>`;
+      const tbody = tabla.querySelector("tbody");
 
-            const tdCheckbox = fila.children[6];
-            if (r.resolved == 1) {
-              tdCheckbox.innerHTML = "<input type='checkbox' checked disabled>";
-            } else {
-              tdCheckbox.innerHTML = "<input type='checkbox' unchecked>";
-            }
+      data.forEach(u => {
+        const fila = document.createElement("tr");
+        fila.innerHTML = `
+          <td>${u.id_user}</td>
+          <td>${u.user_name}</td>
+          <td>${u.email}</td>
+          <td>${u.creation_date}</td>
+          <td>${u.estado}</td>
+          <td>${u.positivo}</td>
+          <td>${u.negativo}</td>
+          <td><img src="data:image/jpeg;base64,${u.profile_photo}" alt="Foto" width="50" height="50" class="rounded-circle" /></td>
+          <td>${u.premium}</td>
+        `;
+        tbody.appendChild(fila);
+      });
 
-            tabla.appendChild(fila);
-          });
+      contenedor.appendChild(tabla);
+    })
+    .catch(error => {
+      console.error("Error al cargar usuaris:", error);
+    });
+}
 
-          contenedor.appendChild(tabla);
-        });
-    }
+// Cargar todos por defecto al abrir la página
+actualizarUsuarios("todos");
 
-    // Llamada inicial
-    actualizarReportes();
 
-    // Recarga periódica cada 5 segundos
-    setInterval(actualizarReportes, 5000);
 </script>
-
 </html>

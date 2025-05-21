@@ -26,8 +26,8 @@
       text-shadow: 2px 2px 4px #000;
     }
 
-    .btn-warning {
-      background-color: #fceae3;
+    .boto {
+      background-color: #2E4D41;
       border: none;
       border-radius: 10px;
     }
@@ -53,16 +53,30 @@
       color: #ddd;
       font-size: 0.9rem;
     }
+ @font-face {
+  font-family: 'Folkard';
+  src: url('fonts/Folkard.ttf') format('truetype');
+}
+
+.titulo {
+  font-family: 'Folkard', cursive;
+  background: linear-gradient(to bottom, black 20%, #b30000 100%);
+  background-clip: text;                /* estándar /
+  -webkit-background-clip: text;        / para WebKit (Chrome, Safari) */
+  -webkit-text-fill-color: transparent;
+  text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.4);
+}
   </style>
 </head>
 <body class="d-flex flex-column justify-content-between text-center">
 
   <div class="col-md-4 text-center d-flex justify-content-center align-items-center" style="width: 100vw; height: 10vh;">
-    <div class="footer-title h1"><span>Cluster Role</span></div>
+    <div><span><a href="/Cluster_Role/proyecto/pagina_main/index.html" class="titulo fw-bold fs-2 text-center" style="text-decoration: none; color: white;">Cluster Role</a></span></div>
+     
   </div>
   <div class="container">
-    <h1 class="titulo display-4">Creeu el vostre regnat</h1>
-    <a href="/Cluster_Role/proyecto/crear/crear_usuario.html" class="btn btn-lg btn-warning px-4 py-2">Crear</a>
+    <h1 class=" display-4">Creeu el vostre regnat</h1>
+    <a href="/Cluster_Role/proyecto/crear/crear_usuario.html" class="btn btn-lg boto px-4 py-2" style="color: white;">Crear</a>
   </div>
 
   <div class="container">
@@ -102,8 +116,8 @@
           <p></p>
         </div>
         <div class="col-md-4 text-center">
-          <div class="footer-title h1"><span>Cluster Role</span></div>
-        </div>
+          <div><span><a href="/Cluster_Role/proyecto/pagina_main/index.html" class="titulo fw-bold fs-2 text-center" style="text-decoration: none; color: white;">Cluster Role</a></span></div>
+    </div>
         <div class="col-md-2 text-center">
           <h4>Contactan's</h4>
           <p>+34 (973) 380-3480</p>

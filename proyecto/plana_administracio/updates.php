@@ -61,7 +61,9 @@ $conn->close();
         <div class="container my-5">
             
             <h2 class="text-center my-4">Updates</h2>
-            <div id="tablaUpdates"></div>
+            <div style="overflow-y: auto; max-height: 400px;">
+              <div id="tablaUpdates"></div>
+            </div>
             <div class="text-center mt-4">
   <a href="formulari_update.php" class="btn btn-success">Fer Update</a>
 </div>
@@ -73,21 +75,21 @@ $conn->close();
 
 <!-- Caja para Grupos -->
 <div class="group-box d-flex justify-content-center align-items-center caja">
-<a href="grupos.php" target="_blank">
+<a href="updates.php">
   <button><h3 class="text-center">Updates</h3></button>
 </a>
 </div>
 
 <!-- Caja para Amigos -->
 <div class="group-box d-flex justify-content-center align-items-center caja">
-  <a href="ver_amigos.php" target="_blank">
+  <a href="ver_amigos.php">
   <button><h3 class="text-center">Grups</h3></button>
 </a>
 </div>
 
 <!-- Caja para Amigos -->
 <div class="group-box d-flex justify-content-center align-items-center caja">
-  <a href="usuaris.php" target="_blank">
+  <a href="usuaris.php">
   <button><h3 class="text-center">Usuaris</h3></button>
 </a>
 </div>
