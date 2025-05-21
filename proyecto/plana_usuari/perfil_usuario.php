@@ -74,10 +74,34 @@
     </form>
   </aside>
   
-  <main class="col-md-6 p-4">
+<main class="col-md-6 p-4">
 
-    <iframe src="detalle_usuario.php?id=<?php echo $_GET['id'];?>" frameborder="0" width="100%" height="500px"></iframe>
-  </main>
+  <?php
+
+    include 'conexion.php';
+
+    $id_usuario_actual = $_SESSION['id_user'] ?? null;
+    $id_usuario_perfil = $_GET['id'] ?? null;
+
+    if ($id_usuario_actual && $id_usuario_perfil && $id_usuario_actual != $id_usuario_perfil) {
+        $stmt = $conn->prepare("SELECT * FROM usuario_amigos WHERE id_usuario = ? AND id_amigo = ?");
+        $stmt->bind_param("ii", $id_usuario_actual, $id_usuario_perfil);
+        $stmt->execute();
+        $result = $stmt->get_result();
+        $son_amigos = $result->num_rows > 0;
+
+        if (!$son_amigos) {
+            echo '<form action="agregar_amigo.php" method="POST" class="mb-3">';
+            echo '<input type="hidden" name="id_amigo" value="' . htmlspecialchars($id_usuario_perfil) . '">';
+            echo '<button type="submit" class="btn btn-success">Agregar amigo</button>';
+            echo '</form>';
+        }
+    }
+  ?>
+
+  <iframe src="detalle_usuario.php?id=<?php echo $_GET['id'];?>" frameborder="0" width="100%" height="500px"></iframe>
+  
+</main>
 
 
 

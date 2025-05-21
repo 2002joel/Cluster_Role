@@ -45,6 +45,9 @@ $conn->close();
 <?php else: ?>
     <p>No hay imagen de mapa disponible.</p>
 <?php endif; ?>
+<iframe src="chat_partida_enviar.php?id_group=<?= $id_group ?>" frameborder="0" width="100%" height="450px"></iframe>
+
+</iframe>
 
 </body>
 </html>

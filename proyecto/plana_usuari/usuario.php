@@ -10,7 +10,7 @@
   <link href="https://fonts.googleapis.com/css2?family=Uncial+Antiqua&display=swap" rel="stylesheet">
 
 <!-- Título -->
->
+
   <style>
     .body, html {
       font-family: 'Georgia', serif;
@@ -42,10 +42,10 @@ right-panel {
     }
   </style>
 </head>
-<body class="bg-light text-dark">
+<body class=" text-dark" style = "background-color: #F5F5F5">
 
   <!-- Header -->
-  <header class="bg-rosa-suave border-bottom border-danger py-3 px-4 d-flex justify-content-center align-items-center">
+  <header class=" border-bottom border-danger py-3 px-4 d-flex justify-content-center align-items-center" style = "background-color: #00695C">
   <div class="d-flex justify-content-between align-items-center">
 <div class="titulo fw-bold fs-2 text-center">Cluster Role</div>
 
@@ -69,7 +69,7 @@ right-panel {
     <div class="row vh-100">
 
       <!-- Sidebar izquierda -->
-      <aside class="col-md-3 p-3 bg-claro text-start d-flex flex-column justify-content-start overflow-auto">
+      <aside class="col-md-3 p-3  text-start d-flex flex-column justify-content-start overflow-auto" style = "background-color: #264653">
       <div id="mensajes" style="overflow-y: scroll; max-height: 400px;">
   <!-- Aquí se cargarán los mensajes con PHP -->
   <?php include 'obtener_mensajes.php'; ?>
