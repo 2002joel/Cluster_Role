@@ -132,6 +132,7 @@ function actualizarUsuarios(filtro) {
         <thead class="table-light">
           <tr>
             <th>ID Usuari</th>
+            <th>ID Usuari</th>
             <th>Nom</th>
             <th>Email</th>
             <th>Data Creació</th>
@@ -150,6 +151,11 @@ function actualizarUsuarios(filtro) {
       data.forEach(u => {
         const fila = document.createElement("tr");
         fila.innerHTML = `
+          <td>
+            <button class="btn btn-sm ${u.baneo == 1 ? 'btn-success' : 'btn-danger'}" onclick="cambiarBaneo(${u.id_user}, ${u.baneo ?? 0})">
+              ${u.baneo == 1 ? 'Desbanear' : 'Banear'}
+            </button>
+          </td>
           <td>${u.id_user}</td>
           <td>${u.user_name}</td>
           <td>${u.email}</td>
@@ -172,6 +178,28 @@ function actualizarUsuarios(filtro) {
 
 // Cargar todos por defecto al abrir la página
 actualizarUsuarios("todos");
+
+function cambiarBaneo(id_user, baneo) {
+  const formData = new FormData();
+  formData.append("id_user", id_user);
+  formData.append("baneo", baneo);
+
+  fetch("cambiar_baneo.php", {
+    method: "POST",
+    body: formData
+  })
+  .then(res => res.json())
+  .then(data => {
+    if (data.success) {
+      actualizarUsuarios("todos"); // recarga tabla
+    } else {
+      alert("Error: " + (data.error || "No se pudo cambiar baneo"));
+    }
+  })
+  .catch(err => {
+    console.error("Error al cambiar baneo:", err);
+  });
+}
 
 
 </script>
