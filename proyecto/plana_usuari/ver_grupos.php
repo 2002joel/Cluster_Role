@@ -11,6 +11,18 @@
     .body, html {
       font-family: 'Georgia', serif;
     }
+    @font-face {
+  font-family: 'Folkard';
+  src: url('fonts/Folkard.ttf') format('truetype');
+}
+
+.titulo {
+  font-family: 'Folkard', cursive;
+  background: linear-gradient(to bottom, black 20%, #b30000 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.4);
+}
     .right-panel {
       display: flex;
       flex-direction: column;

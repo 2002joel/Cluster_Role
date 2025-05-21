@@ -11,6 +11,18 @@
     .body, html {
       font-family: 'Georgia', serif;
     }
+    @font-face {
+  font-family: 'Folkard';
+  src: url('fonts/Folkard.ttf') format('truetype');
+}
+
+.titulo {
+  font-family: 'Folkard', cursive;
+  background: linear-gradient(to bottom, black 20%, #b30000 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.4);
+}
     .right-panel {
       display: flex;
       flex-direction: column;
@@ -28,15 +40,15 @@
   <!-- Header -->
   <header class="bg-rosa-suave border-bottom border-danger py-3 px-4 d-flex justify-content-center align-items-center">
   <div class="d-flex justify-content-between align-items-center">
-  <div class="titulo fw-bold fs-2">Cluster Role</div>
+  <div class="titulo fw-bold fs-2 text-center">Cluster Role</div>
 
   <div class="dropdown">
     <button class="btn btn-light" type="button" id="dropdownMenuButton" data-bs-toggle="dropdown" aria-expanded="false">
       <i class="bi bi-gear-fill"></i>
     </button>
     <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="dropdownMenuButton">
-      <li><a class="dropdown-item" href="#">Usuario</a></li>
-      <!-- Puedes añadir más opciones aquí -->
+     <li><a class="dropdown-item" href="configuracio_usuaris.php">Usuario</a></li>
+      <li><a class="dropdown-item" href="reportes.php">Reportes</a></li>
     </ul>
   </div>
 </div>
