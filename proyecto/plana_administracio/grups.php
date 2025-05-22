@@ -70,25 +70,65 @@ $conn->close();
     </form>
   </aside>
   
+<?php
 
 
-      <main class="col-md-6 p-4 overflow-auto">
-        <div class="container my-5">
-            <h2 class="text-center mb-4">Reports</h2>
-            <div class="mb-3 text-center">
-  <button class="btn btn-outline-success me-2" onclick="actualizarReportes('resueltos')">Mostrar Resueltos</button>
-  <button class="btn btn-outline-danger me-2" onclick="actualizarReportes('no_resueltos')">Mostrar No Resueltos</button>
-  <button class="btn btn-outline-secondary" onclick="actualizarReportes('todos')">Mostrar Todos</button>
-</div>
+// Obtener grupos con JOIN al nombre del creador
+$query = "
+    SELECT 
+        g.id_group,
+        g.group_name,
+        g.creation_date,
+        g.profile_photo,
+        u.user_name AS nombre_creador
+    FROM grupo g
+    LEFT JOIN usuarios u ON g.id_creador = u.id_user
+    ORDER BY g.id_group ASC
+";
 
-            <div id="tablaReportes" style="overflow-y: scroll; max-height: 400px;"></div>
-            
-  
-        
-  
-          </div>
-        
-      </main>
+$result = $conn->query($query);
+?>
+
+<div class="container mt-5">
+    <h2 class="text-center mb-4">Listado de Grupos</h2>
+
+    <div class="table-responsive">
+      <table class="table table-bordered table-striped align-middle">
+        <thead class="table-dark">
+          <tr>
+            <th>Ver</th>
+            <th>ID Grupo</th>
+            <th>Nombre</th>
+            <th>Creador</th>
+            <th>Fecha de Creación</th>
+            <th>Foto</th>
+          </tr>
+        </thead>
+        <tbody>
+          <?php while ($grupo = $result->fetch_assoc()): ?>
+            <tr>
+              <td>
+                <a href="chat_partida_enviar.php?id_group=<?= $grupo['id_group'] ?>" class="btn btn-sm btn-primary">Ver Chat</a>
+              </td>
+              <td><?= htmlspecialchars($grupo['id_group']) ?></td>
+              <td><?= htmlspecialchars($grupo['group_name']) ?></td>
+              <td><?= htmlspecialchars($grupo['nombre_creador'] ?? 'Desconocido') ?></td>
+              <td><?= htmlspecialchars($grupo['creation_date']) ?></td>
+              <td>
+                <?php if ($grupo['profile_photo']): ?>
+                  <img src="data:image/jpeg;base64,<?= base64_encode($grupo['profile_photo']) ?>" width="50" height="50" class="rounded-circle" />
+                <?php else: ?>
+                  <span>Sin foto</span>
+                <?php endif; ?>
+              </td>
+            </tr>
+          <?php endwhile; ?>
+        </tbody>
+      </table>
+    </div>
+  </div>
+
+<?php $conn->close(); ?>
 
 <!-- Panel derecho -->
 <aside class="col-md-3 p-3 bg-claro d-flex flex-column justify-content-between align-items-stretch overflow-auto right-panel">

@@ -31,11 +31,26 @@ $conn->close();
   <link rel="stylesheet" href="styles.css" />
 
 </head>
+<style>
+  @font-face {
+  font-family: 'Folkard';
+  src: url('fonts/Folkard.ttf') format('truetype');
+}
+
+.titulo {
+  font-family: 'Folkard', cursive;
+  background: linear-gradient(to bottom, black 20%, #b30000 100%);
+  background-clip: text;                /* estándar /
+  -webkit-background-clip: text;        / para WebKit (Chrome, Safari) */
+  -webkit-text-fill-color: transparent;
+  text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.4);
+}
+</style>
 <body class="bg-light text-dark">
 
   <!-- Header -->
   <header class="bg-rosa-suave border-bottom border-danger py-3 px-4 d-flex justify-content-center align-items-center">
-    <div class="titulo fw-bold fs-2">Cluster Role</div>
+    <div><span><a href="/Cluster_Role/proyecto/plana_administracio/admin.php" class="titulo fw-bold fs-2 text-center" style="text-decoration: none;">Cluster Role</a></span></div>
   </header>
 
 

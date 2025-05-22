@@ -36,6 +36,21 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     <title>Nou Update</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
 </head>
+<style>
+    @font-face {
+  font-family: 'Folkard';
+  src: url('fonts/Folkard.ttf') format('truetype');
+}
+
+.titulo {
+  font-family: 'Folkard', cursive;
+  background: linear-gradient(to bottom, black 20%, #b30000 100%);
+  background-clip: text;                /* estándar /
+  -webkit-background-clip: text;        / para WebKit (Chrome, Safari) */
+  -webkit-text-fill-color: transparent;
+  text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.4);
+}
+</style>
 <body class="bg-light text-dark">
 
 <div class="container mt-5">

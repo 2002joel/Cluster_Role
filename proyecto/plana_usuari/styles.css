@@ -53,4 +53,10 @@ body {
   h2, h3 {
     color: #7b2c2c;
   }
+
+    @font-face {
+    font-family: 'Folkard';
+    src: url('fonts/Folkard.ttf') format('truetype');
+  }
+
   

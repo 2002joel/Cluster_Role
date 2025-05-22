@@ -27,10 +27,10 @@ $resultado = $conn->query($consulta);
 
 if ($resultado && $resultado->num_rows > 0) {
   while ($row = $resultado->fetch_assoc()) {
-    echo '<div class="chat-bubble mb-2">';
-    echo '<strong>' . htmlspecialchars($row['user_name']) . ':</strong> ';
+    echo '<div class="chat-bubble mb-2" style=" background-color: #c0c0c0;">';
+    echo '<strong style="background-color: #c0c0c0;">' . htmlspecialchars($row['user_name']) . ':</strong> ';
     echo htmlspecialchars($row['text']);
-    echo '<div style="font-size: 0.75em; color: gray;">' . date('H:i', strtotime($row['date'])) . '</div>';
+    echo '<div style="font-size: 0.75em; color: gray; background-color: #c0c0c0;">' . date('H:i', strtotime($row['date'])) . '</div>';
     echo '</div>';
   }
 } else {
