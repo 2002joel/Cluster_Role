@@ -88,6 +88,9 @@ document.getElementById('crearPartidaBtn').addEventListener('click', () => {
   window.open('crear_partida.php?id_group=<?= $id_group ?>', '_blank');
 });
 </script>
+    <form action="entrar_partida.php" method="post">
+    <button type="submit">Entrar en partida</button>
+</form>
 
 
 </main>

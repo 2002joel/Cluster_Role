@@ -146,6 +146,8 @@
     </div>
       <h1>Grupos donde estoy</h1>
     <?php include("mostrar_grupos.php"); ?>
+
+
 </main>
    <!-- Panel derecho -->
 <aside class="col-md-3 p-3 bg-claro d-flex flex-column justify-content-between align-items-stretch overflow-auto right-panel">

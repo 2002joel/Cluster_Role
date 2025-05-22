@@ -7,6 +7,7 @@ if (!isset($_SESSION['id_user'])) {
 }
 
 $id_user = $_SESSION['id_user'];
+$user_name = $_SESSION['user_name'] ?? 'Usuario';
 $id_group = isset($_GET['id_group']) ? intval($_GET['id_group']) : 0;
 
 if ($id_group <= 0) {
@@ -34,7 +35,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && !empty($_POST['mensaje'])) {
         $stmt->close();
 
         // Recarga para mostrar el mensaje
-        header("Location: mostrar_partida.php?id_group=" . $id_group);
+        header("Location: chat_partida_enviar.php?id_group=" . $id_group);
         exit;
     }
 }
@@ -44,12 +45,13 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && !empty($_POST['mensaje'])) {
 <html lang="es">
 <head>
     <meta charset="UTF-8">
-    <title>Chat del Grupo <?= htmlspecialchars($id_group) ?></title>
+    <title>Chat del Grupo #<?= htmlspecialchars($id_group) ?></title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
     <style>
-        body { font-family: sans-serif; }
+        body { font-family: sans-serif; padding: 20px; }
         .chat-box { border: 1px solid #ccc; height: 300px; overflow-y: auto; padding: 10px; margin-bottom: 10px; }
         .mensaje { margin-bottom: 5px; }
-        .form-chat { display: flex; gap: 10px; }
+        .form-chat { display: flex; gap: 10px; align-items: flex-start; }
         .form-chat textarea { flex-grow: 1; resize: none; }
     </style>
 </head>
@@ -78,10 +80,38 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && !empty($_POST['mensaje'])) {
     ?>
 </div>
 
-<form class="form-chat" method="post">
+<form id="formChat" class="form-chat" method="post">
     <textarea name="mensaje" rows="2" placeholder="Escribe tu mensaje..."></textarea>
-    <button type="submit">Enviar</button>
+    
+    <div class="dropdown dropup">
+        <button class="btn btn-secondary dropdown-toggle" type="button" data-bs-toggle="dropdown">
+            🎲 Dado
+        </button>
+        <ul class="dropdown-menu">
+            <li><a class="dropdown-item" href="#" onclick="tirarDado(6)">d6</a></li>
+            <li><a class="dropdown-item" href="#" onclick="tirarDado(10)">d10</a></li>
+            <li><a class="dropdown-item" href="#" onclick="tirarDado(20)">d20</a></li>
+            <li><a class="dropdown-item" href="#" onclick="tirarDado(100)">d100</a></li>
+        </ul>
+    </div>
+
+    <button type="submit" class="btn btn-primary">Enviar</button>
 </form>
+
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+<script>
+document.addEventListener("DOMContentLoaded", function () {
+    const userName = <?= json_encode($user_name) ?>;
+
+    window.tirarDado = function(lados) {
+        const numero = Math.floor(Math.random() * lados) + 1;
+        const mensaje = `${userName} ha tirado un d${lados} y ha sacado un ${numero}`;
+        const textarea = document.querySelector('textarea[name="mensaje"]');
+        textarea.value = mensaje;
+        document.getElementById("formChat").submit();
+    };
+});
+</script>
 
 </body>
 </html>
