@@ -19,7 +19,7 @@ body {
   }
   
   .chat-bubble {
-    background-color: #f3d5d5;
+    background-color: #c0c0c0;
     padding: 10px;
     border-radius: 15px;
     box-shadow: 1px 1px 5px rgba(0, 0, 0, 0.1);
@@ -28,7 +28,7 @@ body {
   }
   
   .alerta {
-    background-color: #ffdfdf;
+    background-color: #c0c0c0;
     padding: 10px;
     border: 1px solid #ff7b7b;
     border-radius: 10px;
@@ -58,5 +58,6 @@ body {
     font-family: 'Folkard';
     src: url('fonts/Folkard.ttf') format('truetype');
   }
+
 
   

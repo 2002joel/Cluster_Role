@@ -1,6 +1,8 @@
 <?php
 // Conexión a la base de datos
-
+if (session_status() === PHP_SESSION_NONE) {
+    session_start();
+}
 include 'conexion.php';
 // Consulta para obtener todas las versiones
 $sql = "SELECT * FROM update_log ORDER BY date DESC"; // Reemplaza 'tu_tabla' por el nombre real

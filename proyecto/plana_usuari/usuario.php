@@ -1,3 +1,22 @@
+<?php
+if (session_status() === PHP_SESSION_NONE) {
+    session_start();
+}
+include("conexion.php");
+
+$id_user = $_SESSION['id_user'] ?? 0;
+$profile_photo = null;
+
+if ($id_user) {
+    $stmt = $conn->prepare("SELECT profile_photo FROM usuarios WHERE id_user = ?");
+    $stmt->bind_param("i", $id_user);
+    $stmt->execute();
+    $stmt->bind_result($profile_photo);
+    $stmt->fetch();
+    $stmt->close();
+}
+$conn->close();
+?>
 <!DOCTYPE html>
 <html lang="es">
 <head>
@@ -57,16 +76,15 @@
   footer {
     background-color: #1E1E1E; /* gris muy oscuro */
     color: #a0a0a0; /* gris medio */
-    padding: 0.8rem;
     text-align: center;
     font-size: 0.9rem;
-    margin-top: 2rem;
+ 
   }
 
   input, textarea {
     border: 1px solid #666666; /* gris medio */
     border-radius: 4px;
-    padding: 0.4rem 0.6rem;
+   
     font-size: 1rem;
     color: #f0f0f0; /* gris claro */
     background-color: #333333; /* gris oscuro */
@@ -94,18 +112,34 @@
 </head>
 <body class="text-light" style="background-color: #121212;">
 
-  <!-- Header -->
   <header class="border-bottom border-secondary py-3 px-4 d-flex justify-content-center align-items-center" style="background-color: #1E1E1E;">
-    <div class="d-flex justify-content-between align-items-center px-4" style="width: 100%; position: relative;">
+    <div class="d-flex justify-content-between align-items-center px-4" style="width: 100%; position: relative; max-height: 20vh;">
   <!-- Dropdown a la derecha -->
   <div class="dropdown ms-auto order-2">
-    <button class="btn btn-light" type="button" id="dropdownMenuButton" data-bs-toggle="dropdown" aria-expanded="false" style="color: #222;">
-      <i class="bi bi-gear-fill"></i>
-    </button>
-    <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="dropdownMenuButton" style="background-color:#222; color:#c0c0c0;">
-      <li><a class="dropdown-item" href="configuracio_usuaris.php" style="color:#c0c0c0;">Usuario</a></li>
-      <li><a class="dropdown-item" href="reportes.php" style="color:#c0c0c0;">Reportes</a></li>
-    </ul>
+  
+  <div class="dropdown ms-auto order-2">
+    <?php if ($profile_photo): ?>
+  <img src="data:image/jpeg;base64,<?= base64_encode($profile_photo) ?>" 
+       class="rounded-circle dropdown-toggle"
+       id="dropdownMenuButton"
+       data-bs-toggle="dropdown"
+       aria-expanded="false"
+       style="width: 40px; height: 40px; object-fit: cover; cursor: pointer;" />
+<?php else: ?>
+  <img src="/Cluster_Role/proyecto/foto/icons/default_profile.png"
+       class="rounded-circle dropdown-toggle"
+       id="dropdownMenuButton"
+       data-bs-toggle="dropdown"
+       aria-expanded="false"
+       style="width: 40px; height: 40px; object-fit: cover; cursor: pointer;" />
+<?php endif; ?>
+    <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="dropdownMenuButton" style="background-color:#222; color: #c0c0c0;">
+  <li><a class="dropdown-item" href="configuracio_usuaris.php" style="color:#c0c0c0;">Usuario</a></li>
+  <li><a class="dropdown-item" href="reportes.php" style="color:#c0c0c0;">Reportes</a></li>
+  <li><a class="dropdown-item" href="logout.php" style="color:#c0c0c0;">Cerrar sesión</a></li>
+</ul>
+
+  </div>
   </div>
 
   <!-- Título centrado con posición absoluta -->
@@ -116,24 +150,24 @@
   </header>
 
   <div class="container-fluid">
-    <div class="row vh-100">
+    <div class="row" style="height: " >
 
       <!-- Sidebar izquierda -->
-      <aside class="col-md-3 p-3 text-start d-flex flex-column justify-content-start overflow-auto" style="background-color: #222222; border-radius: 8px;">
-  <div id="mensajes" style="overflow-y: scroll; max-height: 400px; background-color: #555; color: #f0f0f0; padding: 10px; border-radius: 6px;">
+      <aside class="col-md-3 p-3 text-start d-flex flex-column justify-content-start overflow-auto" style="background-color: #222222; border-radius: 8px; max-height: 630px">
+  <div id="mensajes" style="overflow-y: scroll;  background-color: #555; color: #f0f0f0; padding: 10px; border-radius: 6px;">
     <!-- Aquí se cargarán los mensajes con PHP -->
     <?php include 'obtener_mensajes.php'; ?>
   </div>
 
   <!-- Formulario para enviar mensaje -->
-  <form action="enviar_mensaje.php" method="POST" class="escribir mt-3">
+  <form action="enviar_mensaje.php" method="POST" class="escribir mt-3 d-flex justify-content-center align-items-center flex-column">
     <textarea class="form-control" name="mensaje" rows="3" placeholder="Escribe un mensaje..." required></textarea>
-    <button type="submit" class="btn btn-primary mt-2">Enviar</button>
+    <button type="submit" class="btn btn-primary mt-2 w-50">Enviar</button>
   </form>
 </aside>
 
 
-      <main class="col-md-6 p-4">
+      <main class="col-md-6 p-4" style="max-height: 70vh;">
         <div class="banner mb-3">
           <img src="/Cluster_Role/proyecto/foto/photos/foto_update.png" width="100%" height="100%" alt="">
         </div>
@@ -145,12 +179,12 @@
       </main>
 
       <!-- Panel derecho -->
-      <aside class="col-md-3 p-3 bg-claro d-flex flex-column justify-content-between align-items-stretch overflow-auto right-panel" style="background-color: #222222;">
+      <aside class="col-md-3 p-3 bg-claro d-flex flex-column justify-content-between align-items-stretch overflow-auto right-panel" style="background-color: #222222; max-height: 630px">
 
         <!-- Caja para Grupos -->
         <div class="group-box">
           <a href="grupos.php">
-            <button style="width: 100%; background-color: #555; color: #e0e0e0; border:none; padding: 0.4rem; border-radius: 4px;">
+            <button style="width: 100%; background-color: #555; color: #e0e0e0; border:none;  border-radius: 4px;">
               <h3 class="text-center m-0">Grupos</h3>
             </button>
           </a>
@@ -166,7 +200,7 @@
 
         <!-- Caja para Personas Relevantes -->
         <div class="group-box mt-3">
-          <h3 class="text-center">Personas Relevantes</h3>
+          <h3 class="text-center" style="width: 100%; background-color: #555; color:#e0e0e0; border:none; padding: 0.4rem; border-radius: 4px;">Personas Relevantes</h3>
           <div class="card" style="background-color: #333;">
             <div class="card-body" style="color: #c0c0c0;">
               <ul class="list-unstyled" id="lista-relevantes">
@@ -198,7 +232,7 @@
   </div>
 
   <!-- Footer -->
-  <footer class="text-center py-2 border-top border-secondary" style="background-color: #1E1E1E; color: #888888;">
+  <footer class="text-center py-2 border-top border-secondary d-flex justify-content-center align-items-center col-md-12" style="background-color: #1E1E1E; color: #888888; height: 10vh;">
     Cluster Role © 2025 - Todos los derechos reservados
   </footer>
 
