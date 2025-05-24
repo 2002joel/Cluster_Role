@@ -36,7 +36,7 @@ if (!isset($nombre)) {
 }
 ?>
 
-<div class="user-profile" style="text-align: center;">
+<div class="user-profile" style="text-align: center; color:  #c0c0c0 ;">
   <img class="profile" 
        src="data:image/png;base64,<?php echo base64_encode($foto); ?>" 
        alt="Foto de perfil" 

@@ -1,3 +1,22 @@
+<?php
+if (session_status() === PHP_SESSION_NONE) {
+    session_start();
+}
+include("conexion.php");
+
+$id_user = $_SESSION['id_user'] ?? 0;
+$profile_photo = null;
+
+if ($id_user) {
+    $stmt = $conn->prepare("SELECT profile_photo FROM usuarios WHERE id_user = ?");
+    $stmt->bind_param("i", $id_user);
+    $stmt->execute();
+    $stmt->bind_result($profile_photo);
+    $stmt->fetch();
+    $stmt->close();
+}
+$conn->close();
+?>
 <!DOCTYPE html>
 <html lang="es">
 <head>
@@ -7,74 +26,60 @@
   <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
   <link rel="stylesheet" href="styles.css" />
   <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
-  <style>
-    .body, html {
-      font-family: 'Georgia', serif;
-    }
-    @font-face {
-  font-family: 'Folkard';
-  src: url('fonts/Folkard.ttf') format('truetype');
-}
+  <link href="https://fonts.googleapis.com/css2?family=Uncial+Antiqua&display=swap" rel="stylesheet">
 
-.titulo {
-  font-family: 'Folkard', cursive;
-  background: linear-gradient(to bottom, black 20%, #b30000 100%);
-  -webkit-background-clip: text;
-  -webkit-text-fill-color: transparent;
-  text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.4);
-}
-    .right-panel {
-      display: flex;
-      flex-direction: column;
-      justify-content: space-between;
-      height: 100%;
-    }
-    .group-box {
-      flex: 1 1 33%; /* Cada div ocupará un 33% del contenedor */
-      margin-bottom: 1rem;
-    }
-  </style>
 </head>
-<body class="bg-light text-dark">
 
-  <!-- Header -->
-  <header class="bg-rosa-suave border-bottom border-danger py-3 px-4 d-flex justify-content-center align-items-center">
-  <div class="d-flex justify-content-between align-items-center">
-  <div class="titulo fw-bold fs-2 text-center">Cluster Role</div>
+<body>
+  <!-- HEADER (20%) -->
+  <header class="border-bottom border-secondary py-3 px-4 d-flex justify-content-center align-items-center">
+    <div class="d-flex justify-content-between align-items-center px-4" style="width: 100%; position: relative;">
+      <div class="dropdown ms-auto order-2">
+        <!-- PHP para imagen -->
+        <?php if ($profile_photo): ?>
+        <img src="data:image/jpeg;base64,<?= base64_encode($profile_photo) ?>"
+             class="rounded-circle dropdown-toggle"
+             id="dropdownMenuButton"
+             data-bs-toggle="dropdown"
+             aria-expanded="false"
+             style="width: 40px; height: 40px; object-fit: cover; cursor: pointer;" />
+        <?php else: ?>
+        <img src="/Cluster_Role/proyecto/foto/icons/default_profile.png"
+             class="rounded-circle dropdown-toggle"
+             id="dropdownMenuButton"
+             data-bs-toggle="dropdown"
+             aria-expanded="false"
+             style="width: 40px; height: 40px; object-fit: cover; cursor: pointer;" />
+        <?php endif; ?>
+        <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="dropdownMenuButton" style="background-color:#525D5A; color: #C9BD98;">
+          <li><a class="dropdown-item" href="configuracio_usuaris.php" style="color:#C9BD98;">Usuario</a></li>
+          <li><a class="dropdown-item" href="reportes.php" style="color:#C9BD98;">Reportes</a></li>
+          <li><a class="dropdown-item" href="logout.php" style="color:#C9BD98;">Cerrar sesión</a></li>
+        </ul>
+      </div>
 
-  <div class="dropdown">
-    <button class="btn btn-light" type="button" id="dropdownMenuButton" data-bs-toggle="dropdown" aria-expanded="false">
-      <i class="bi bi-gear-fill"></i>
-    </button>
-    <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="dropdownMenuButton">
-     <li><a class="dropdown-item" href="configuracio_usuaris.php">Usuario</a></li>
-      <li><a class="dropdown-item" href="reportes.php">Reportes</a></li>
-    </ul>
-  </div>
-</div>
-
-  
+      <div class="position-absolute start-50 translate-middle-x titulo fw-bold fs-2 text-center">
+          <a href="usuario.php"> Cluster Role</a>
+      </div>
+    </div>
   </header>
 
+  <!-- CONTENIDO CENTRAL (70%) -->
   <div class="container-fluid">
-    <div class="row vh-100">
+    <div class="row row-full-height">
+      <!-- ASIDE IZQUIERDO -->
+      <aside class="col-md-2 p-3 d-flex flex-column justify-content-around" style="background-color: rgb(82,93,90); height: 100%;">
+        <div id="mensajes" style="overflow-y: scroll; background-color: rgb(113,124,110); color: rgb(201,189,152); padding: 10px; border-radius: 6px;">
+          <?php include 'obtener_mensajes.php'; ?>
+        </div>
+        <form action="enviar_mensaje.php" method="POST" class="mt-3 d-flex flex-column align-items-center">
+          <textarea class="form-control" name="mensaje" rows="3" placeholder="Escribe un mensaje..." required></textarea>
+          <button type="submit" class="btn btn-primary mt-2 w-50">Enviar</button>
+        </form>
+      </aside>
 
-      <!-- Sidebar izquierda -->
-      <aside class="col-md-3 p-3 bg-claro text-start d-flex flex-column justify-content-end overflow-auto">
-      <div id="mensajes" style="overflow-y: scroll; max-height: 400px;">
-  <!-- Aquí se cargarán los mensajes con PHP -->
-  <?php include 'obtener_mensajes.php'; ?>
-</div>
-
-
-    <!-- Formulario para enviar mensaje -->
-    <form action="enviar_mensaje.php" method="POST" class="escribir mt-3">
-      <textarea class="form-control" name="mensaje" rows="3" placeholder="Escribe un mensaje..." required></textarea>
-      <button type="submit" class="btn btn-primary mt-2">Enviar</button>
-    </form>
-  </aside>
-  
-<main class="col-md-6 p-4">
+      <!-- MAIN CENTRAL -->
+<main class="col-md-8 p-4">
 
   <?php
 
@@ -103,59 +108,54 @@
   
 </main>
 
+      <!-- PANEL DERECHO -->
+    <aside class="col-md-2 p-3 d-flex flex-column justify-content-around" style="background-color: rgb(82,93,90); height: 100%;">
+        <!-- GRUPOS -->
+        <div class="group-box mt-3">
+          <a href="grupos.php">
+            <button style="width: 100%; background-color: rgb(104,116,108); color: rgb(201,189,152); border:none; border-radius: 4px;">
+              <h3 class="text-center titulo pt-2" style="font-size: 1rem;">Grupos</h3>
+            </button>
+          </a>
+          <div class="card" style="background-color: rgb(100,96,79);">
+            <div class="card-body" style="color: rgb(201,189,152);">
+              <ul class="list-unstyled" id="lista-grupos"><?php include 'datos_grupos.php'; ?></ul>
+            </div>
+          </div>
+        </div>
 
+        <!-- RANKING -->
+        <div class="group-box mt-3">
+          <button style="width: 100%; background-color: rgb(104,116,108); color: rgb(201,189,152); border:none; border-radius: 4px;">
+            <h3 class="text-center titulo pt-2" style="font-size: 1rem;">Ranking</h3>
+          </button>
+          <div class="card" style="background-color: rgb(100,96,79);">
+            <div class="card-body" style="color: rgb(201,189,152);">
+              <ul class="list-unstyled" id="lista-relevantes"><?php include 'datos_relevantes.php'; ?></ul>
+            </div>
+          </div>
+        </div>
 
-   <!-- Panel derecho -->
-<aside class="col-md-3 p-3 bg-claro d-flex flex-column justify-content-between align-items-stretch overflow-auto right-panel">
-
-<!-- Caja para Grupos -->
-<div class="group-box">
-<a href="grupos.php">
-  <button><h3 class="text-center">Grupos</h3></button>
-</a>
-
-  <div class="card">
-    <div class="card-body">
-      <ul class="list-unstyled" id="lista-grupos">
-        <?php include 'datos_grupos.php'; ?>
-      </ul>
-    </div>
-  </div>
-</div>
-
-<!-- Caja para Personas Relevantes -->
-<div class="group-box">
-  <h3 class="text-center">Personas Relevantes</h3>
-  <div class="card">
-    <div class="card-body">
-      <ul class="list-unstyled" id="lista-relevantes">
-        <?php include 'datos_relevantes.php'; ?>
-      </ul>
-    </div>
-  </div>
-</div>
-
-<!-- Caja para Amigos -->
-<div class="group-box">
-  <h3 class="text-center">Amigos</h3>
-  <div class="card">
-    <div class="card-body">
-      <ul class="list-unstyled" id="lista-amigos">
-        <?php include 'datos_amigos.php'; ?>
-      </ul>
-    </div>
-  </div>
-</div>
-
-</aside>
-
+        <!-- AMIGOS -->
+        <div class="group-box mt-3">
+          <a href="ver_amigos.php">
+            <button style="width: 100%; background-color: rgb(104,116,108); color: rgb(201,189,152); border:none; border-radius: 4px;">
+              <h3 class="text-center titulo pt-2" style="font-size: 1rem;">Amigos</h3>
+            </button>
+          </a>
+          <div class="card" style="background-color: rgb(100,96,79);">
+            <div class="card-body" style="color: rgb(201,189,152);">
+              <ul class="list-unstyled" id="lista-amigos"><?php include 'datos_amigos.php'; ?></ul>
+            </div>
+          </div>
+        </div>
+      </aside>
     </div>
   </div>
 
-  <!-- Footer -->
-  <footer class="text-center bg-rosa-suave py-2 border-top border-danger">
+  <!-- FOOTER (10%) -->
+  <footer>
     Cluster Role © 2025 - Todos los derechos reservados
   </footer>
-
 </body>
 </html>
