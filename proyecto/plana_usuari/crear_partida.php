@@ -76,7 +76,6 @@ while ($row = $result->fetch_assoc()) {
 function seleccionarImagen(idImagen, elemento) {
     document.getElementById('id_imagen_seleccionada').value = idImagen;
 
-    // Mostrar visualmente la imagen seleccionada como fondo
     document.getElementById('mapa').style.backgroundImage = `url('${elemento.src}')`;
 }
 </script>

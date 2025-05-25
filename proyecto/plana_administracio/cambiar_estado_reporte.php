@@ -10,10 +10,8 @@ if ($id === null || $resolved === null) {
 }
 
 if ($resolved == 1) {
-    // Si está resuelto, lo desmarcamos y eliminamos fecha
     $sql = "UPDATE report SET resolved = 0, resolved_date = NULL WHERE id_report = ?";
 } else {
-    // Si no está resuelto, lo marcamos y ponemos fecha actual
     $sql = "UPDATE report SET resolved = 1, resolved_date = NOW() WHERE id_report = ?";
 }
 

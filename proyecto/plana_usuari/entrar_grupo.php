@@ -8,7 +8,6 @@ if (!$id_group) {
     die("ID de grupo no especificado.");
 }
 
-// Buscar la partida asociada a ese grupo (por ejemplo, la primera partida)
 $stmt = $conn->prepare("SELECT id_partida, id_group, id_creador, mapa, fecha_inicio, fecha_fin, estado FROM partida WHERE id_group = ? LIMIT 1");
 $stmt->bind_param("i", $id_group);
 $stmt->execute();

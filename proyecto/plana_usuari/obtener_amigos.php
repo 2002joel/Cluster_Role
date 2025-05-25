@@ -17,17 +17,13 @@ if ($result->num_rows === 0) {
 } else {
     while ($row = $result->fetch_assoc()) {
         $nombre = htmlspecialchars($row['user_name']);
-        $profile_photo = $row['profile_photo']; // Esto es el BLOB de la imagen
-        
-        // Verifica si la imagen existe
+        $profile_photo = $row['profile_photo']; 
         if ($profile_photo) {
-            // Si la imagen existe, la convertimos a base64 y la mostramos
             echo "<div class='d-flex align-items-center mb-2'>
                     <img src='data:image/jpeg;base64," . base64_encode($profile_photo) . "' class='rounded-circle me-2' width='40' height='40'>
                     <span>$nombre</span>
                   </div>";
         } else {
-            // Si no hay imagen, mostramos una imagen predeterminada
             echo "<div class='d-flex align-items-center mb-2'>
                     <img src='img/default.png' class='rounded-circle me-2' width='40' height='40'>
                     <span>$nombre</span>

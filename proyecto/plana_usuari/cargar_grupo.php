@@ -1,6 +1,4 @@
 <?php
-// No incluimos session_start() aquí para evitar duplicados
-// Asumimos que ya se llamó session_start() en el archivo principal
 
 require_once 'conexion.php'; // Incluye tu conexión a la base de datos
 

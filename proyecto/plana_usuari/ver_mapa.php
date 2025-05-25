@@ -70,18 +70,14 @@ let imgSeleccionada = null;
 
 galeria.addEventListener('click', e => {
     if (e.target.classList.contains('imagen')) {
-        // Quitar clase seleccionada
         if (imgSeleccionada) {
             imgSeleccionada.classList.remove('seleccionada');
         }
-        // Marcar imagen seleccionada
         imgSeleccionada = e.target;
         imgSeleccionada.classList.add('seleccionada');
 
-        // Poner imagen de fondo en div mapa
         mapa.style.backgroundImage = `url('${imgSeleccionada.src}')`;
 
-        // Guardar id en el input oculto
         inputImagen.value = imgSeleccionada.getAttribute('data-id');
     }
 });
@@ -89,4 +85,4 @@ galeria.addEventListener('click', e => {
 
 </body>
 </html>
-ml>
+

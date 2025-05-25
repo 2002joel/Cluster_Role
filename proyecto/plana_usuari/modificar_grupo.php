@@ -14,9 +14,9 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         $imagenContenido = file_get_contents($imagen['tmp_name']);
 
         $stmt = $conn->prepare("UPDATE grupo SET group_name = ?, profile_photo = ? WHERE id_group = ?");
-        $null = NULL; // se usa como placeholder para el BLOB
+        $null = NULL; 
         $stmt->bind_param("sbi", $nuevo_nombre, $null, $id_group);
-        $stmt->send_long_data(1, $imagenContenido); // índice 1 corresponde al segundo parámetro (profile_photo)
+        $stmt->send_long_data(1, $imagenContenido);
     } else {
         $stmt = $conn->prepare("UPDATE grupo SET group_name = ? WHERE id_group = ?");
         $stmt->bind_param("si", $nuevo_nombre, $id_group);

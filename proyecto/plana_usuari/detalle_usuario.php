@@ -3,8 +3,6 @@ include 'conexion.php';
 
 $id = $_GET['id'];
 
-
-// Verifica si ya votó por este usuario
 $voto_cookie = "voto_usuario_" . $id;
 
 if (isset($_GET['accion']) && !isset($_COOKIE[$voto_cookie])) {
@@ -22,7 +20,6 @@ if (isset($_GET['accion']) && !isset($_COOKIE[$voto_cookie])) {
     exit;
 }
 
-// Obtener datos del usuario
 $stmt = $conn->prepare("SELECT user_name, creation_date, estado, positivo, negativo, profile_photo FROM usuarios WHERE id_user = ?");
 $stmt->bind_param("i", $id);
 $stmt->execute();

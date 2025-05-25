@@ -21,7 +21,7 @@ if ($stmt->num_rows === 0) {
 $stmt->bind_result($imagen);
 $stmt->fetch();
 
-header("Content-Type: image/jpeg"); // Ajusta si usas otro formato
+header("Content-Type: image/jpeg"); 
 echo $imagen;
 
 $stmt->close();

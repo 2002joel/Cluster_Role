@@ -23,18 +23,14 @@
 
 <script>
 document.addEventListener("DOMContentLoaded", function () {
-    // Aquí pones el nombre de usuario estático o dinámico si quieres.
     const userName = "Usuario"; 
 
     window.tirarDado = function(lados) {
         const numero = Math.floor(Math.random() * lados) + 1;
         const mensaje = `${userName} ha tirado un d${lados} y ha sacado un ${numero}`;
 
-        // Aquí puedes hacer lo que necesites con el resultado, por ejemplo:
         alert(mensaje);
 
-        // Si quieres enviar el mensaje a un textarea o formulario que está fuera del iframe,
-        // tendrías que usar postMessage o alguna comunicación entre iframe y padre.
     };
 });
 </script>

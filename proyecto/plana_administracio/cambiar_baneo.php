@@ -17,7 +17,6 @@ if ($id === null || $baneo_actual === null) {
     exit;
 }
 
-// Cambiar baneo: si está en 1, poner 0. Si está en 0 o NULL, poner 1
 $nuevo_baneo = ($baneo_actual == 1) ? 0 : 1;
 
 $stmt = $conn->prepare("UPDATE usuarios SET baneo = ? WHERE id_user = ?");

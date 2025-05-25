@@ -1,6 +1,6 @@
 <?php
 session_start();
-require_once 'conexion.php'; // tu archivo de conexión
+require_once 'conexion.php'; 
 
 if (!isset($_SESSION['id_user'])) {
     header("Location: login.php");
@@ -9,7 +9,6 @@ if (!isset($_SESSION['id_user'])) {
 
 $id_user = $_SESSION['id_user'];
 
-// Buscar si este usuario ha creado una partida activa
 $sql = "SELECT id_partida FROM partida WHERE id_creador = ? AND estado = 'activa' LIMIT 1";
 $stmt = $conn->prepare($sql);
 $stmt->bind_param("i", $id_user);

@@ -4,8 +4,7 @@ if (session_status() === PHP_SESSION_NONE) {
     session_start();
 }
 include 'conexion.php';
-// Consulta para obtener todas las versiones
-$sql = "SELECT * FROM update_log ORDER BY date DESC"; // Reemplaza 'tu_tabla' por el nombre real
+$sql = "SELECT * FROM update_log ORDER BY date DESC";
 $result = $conn->query($sql);
 
 if ($result->num_rows > 0) {

@@ -8,13 +8,11 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         die("ID de grupo no proporcionado.");
     }
 
-    // Primero elimina las relaciones del grupo con usuarios
     $stmt1 = $conn->prepare("DELETE FROM user_group WHERE id_group = ?");
     $stmt1->bind_param("i", $id_group);
     $stmt1->execute();
     $stmt1->close();
 
-    // Ahora sí puedes eliminar el grupo
     $stmt2 = $conn->prepare("DELETE FROM grupo WHERE id_group = ?");
     $stmt2->bind_param("i", $id_group);
 

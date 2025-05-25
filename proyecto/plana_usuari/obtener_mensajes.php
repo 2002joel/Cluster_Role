@@ -36,11 +36,8 @@ if ($resultado && $resultado->num_rows > 0) {
 
     if ($es_usuario_actual) {
 
-        // Verde y alineado a la derecha
         $estilos .= " background-color: rgb(100,96,79); color: rgb(201,189,152); margin-left: auto; text-align: right;";
     } else {
-        // Alineado a la izquierda por defecto
-
         $estilos .= " margin-right: auto; background-color: #C9BD98;";
     }
 

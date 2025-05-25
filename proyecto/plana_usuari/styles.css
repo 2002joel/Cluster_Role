@@ -1,4 +1,4 @@
-/* === REGLAS GENERALES === */
+
 html, body {
   height: 100%;
   margin: 0;
@@ -11,7 +11,6 @@ html, body {
   flex-direction: column;
 }
 
-/* === HEADER === */
 header {
   height: 10vh;
   background: linear-gradient(90deg, #68746C, #717C6E);
@@ -25,7 +24,6 @@ header {
   flex-shrink: 0;
 }
 
-/* === CONTENEDOR CENTRAL === */
 .container-fluid {
   flex: 1 0 auto;
   display: flex;
@@ -45,7 +43,6 @@ main, aside {
   overflow-y: auto;
 }
 
-/* === FOOTER === */
 footer {
   flex-shrink: 0;
   height: 10vh;
@@ -59,14 +56,11 @@ footer {
   justify-content: center;
 }
 
-/* === MAIN === */
 main {
   padding: 2rem 3rem;
   background: #464e47cc;
 }
 
-
-/* === BOTÓN === */
 .btn {
   background: linear-gradient(45deg, #AC844C, #C9BD98);
   border: none;
@@ -89,7 +83,6 @@ main {
   outline: none;
 }
 
-/* === INPUTS === */
 input, textarea {
   border: 2px solid #8C876F;
   border-radius: 12px;
@@ -119,7 +112,6 @@ input::placeholder, textarea::placeholder {
   font-weight: 400;
 }
 
-/* === ESTILOS PERSONALIZADOS === */
 .titulo {
   font-family: 'Folkard', cursive;
   font-size: 2rem;
@@ -218,7 +210,6 @@ aside form textarea {
   }
 }
 
-/* === ESTILOS ADICIONALES (NO ELIMINADOS) === */
 .bg-claro { background-color: #fff6f4; }
 .bg-rosa-suave { background-color: #fbe3db; }
 
@@ -259,10 +250,10 @@ h2, h3 {
   top: 50%;
   left: 50%;
   transform: translate(-50%, -50%);
-  font-size: 3rem; /* Cambia según el tamaño deseado */
+  font-size: 3rem;
   font-weight: bold;
-  text-shadow: 2px 2px 6px rgba(0,0,0,0.7); /* Opcional para resaltar sobre la imagen */
-  pointer-events: none; /* Evita que interfiera con clics */
+  text-shadow: 2px 2px 6px rgba(0,0,0,0.7);
+  pointer-events: none;
   z-index: 2;
 }
 

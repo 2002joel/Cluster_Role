@@ -35,7 +35,6 @@ echo "<div style='padding:6px; margin:6px; font-size: 0.7em; width: fit-content;
 
 echo "<h3 style='font-size: 0.9em; margin-bottom:4px;'>" . htmlspecialchars($grupo['group_name']) . "</h3>";
 
-// Convertir la imagen BLOB a base64
 $imagen = base64_encode($grupo['profile_photo']);
 echo "<a href='entrar_grupo.php?id=" . $grupo['id_group'] . "' style='display:inline-block; margin-right:6px;'>";
 echo "<img src='data:image/jpeg;base64,$imagen' width='60' height='60' alt='Grupo'>";
@@ -54,6 +53,6 @@ echo "</div>";
 }
 
 $stmt->close();
-$conn->close(); // Cierra la conexión correctamente usando $conn
+$conn->close();
 ?>
 

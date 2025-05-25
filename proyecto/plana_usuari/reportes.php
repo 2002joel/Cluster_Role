@@ -31,11 +31,10 @@ $conn->close();
 </head>
 
 <body>
-  <!-- HEADER (20%) -->
   <header class="border-bottom border-secondary py-3 px-4 d-flex justify-content-center align-items-center">
     <div class="d-flex justify-content-between align-items-center px-4" style="width: 100%; position: relative;">
       <div class="dropdown ms-auto order-2">
-        <!-- PHP para imagen -->
+      
         <?php if ($profile_photo): ?>
         <img src="data:image/jpeg;base64,<?= base64_encode($profile_photo) ?>"
              class="rounded-circle dropdown-toggle"
@@ -64,10 +63,8 @@ $conn->close();
     </div>
   </header>
 
-  <!-- CONTENIDO CENTRAL (70%) -->
   <div class="container-fluid">
     <div class="row row-full-height">
-      <!-- ASIDE IZQUIERDO -->
       <aside class="col-md-2 p-3 d-flex flex-column justify-content-around" style="background-color: rgb(82,93,90); height: 100%;">
         <div id="mensajes" style="overflow-y: scroll; background-color: rgb(113,124,110); color: rgb(201,189,152); padding: 10px; border-radius: 6px;">
           <?php include 'obtener_mensajes.php'; ?>
@@ -78,7 +75,6 @@ $conn->close();
         </form>
       </aside>
 
-      <!-- MAIN CENTRAL -->
 <main class="col-md-8 p-4">
     <h3>Reportar Usuari</h3>
     <form action="reportar.php" method="POST">
@@ -124,9 +120,9 @@ $conn->close();
 
 </main>
 
-      <!-- PANEL DERECHO -->
+
     <aside class="col-md-2 p-3 d-flex flex-column justify-content-around" style="background-color: rgb(82,93,90); height: 100%;">
-        <!-- GRUPOS -->
+       
         <div class="group-box mt-3">
           <a href="grupos.php">
             <button style="width: 100%; background-color: rgb(104,116,108); color: rgb(201,189,152); border:none; border-radius: 4px;">
@@ -140,7 +136,6 @@ $conn->close();
           </div>
         </div>
 
-        <!-- RANKING -->
         <div class="group-box mt-3">
           <button style="width: 100%; background-color: rgb(104,116,108); color: rgb(201,189,152); border:none; border-radius: 4px;">
             <h3 class="text-center titulo pt-2" style="font-size: 1rem;">Ranking</h3>
@@ -152,7 +147,6 @@ $conn->close();
           </div>
         </div>
 
-        <!-- AMIGOS -->
         <div class="group-box mt-3">
           <a href="ver_amigos.php">
             <button style="width: 100%; background-color: rgb(104,116,108); color: rgb(201,189,152); border:none; border-radius: 4px;">
@@ -168,8 +162,6 @@ $conn->close();
       </aside>
     </div>
   </div>
-
-  <!-- FOOTER (10%) -->
   <footer>
     Cluster Role © 2025 - Todos los derechos reservados
   </footer>

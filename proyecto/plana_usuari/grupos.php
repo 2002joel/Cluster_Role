@@ -64,10 +64,8 @@ $conn->close();
     </div>
   </header>
 
-  <!-- CONTENIDO CENTRAL (70%) -->
   <div class="container-fluid">
     <div class="row row-full-height">
-      <!-- ASIDE IZQUIERDO -->
       <aside class="col-md-2 p-3 d-flex flex-column justify-content-around" style="background-color: rgb(82,93,90); height: 100%;">
         <div id="mensajes" style="overflow-y: scroll; background-color: rgb(113,124,110); color: rgb(201,189,152); padding: 10px; border-radius: 6px;">
           <?php include 'obtener_mensajes.php'; ?>
@@ -78,7 +76,6 @@ $conn->close();
         </form>
       </aside>
 
-      <!-- MAIN CENTRAL -->
    
    <main class="col-md-8 p-4">
     <?php include 'mirar_grupos.php'; ?>
@@ -123,7 +120,6 @@ $conn->close();
             echo '</form>';
             echo '</div>';
 
-            // Mostrar el formulario de modificación si se pulsó
             if ($idModificar == $id_group) {
                 echo '<form method="POST" action="modificar_grupo.php" enctype="multipart/form-data" class="mt-3">';
                 echo '<input type="hidden" name="id_group" value="' . $id_group . '">';
@@ -142,7 +138,6 @@ $conn->close();
             echo '</div>';
         }
 
-        // Cuadros "+" para crear nuevos grupos
         for ($i = $totalGrupos; $i < 3; $i++) {
             echo '<a href="creacion_grupos.php" class="text-decoration-none">';
             echo '<div style="width: 150px; height: 150px; border: 2px dashed #aaa; border-radius: 10px; display: flex; align-items: center; justify-content: center; font-size: 72px; color: #aaa; font-weight: bold;">+</div>';
@@ -156,10 +151,8 @@ $conn->close();
 
 </main>
 
-
-      <!-- PANEL DERECHO -->
     <aside class="col-md-2 p-3 d-flex flex-column justify-content-around" style="background-color: rgb(82,93,90); height: 100%;">
-        <!-- GRUPOS -->
+
         <div class="group-box mt-3">
           <a href="grupos.php">
             <button style="width: 100%; background-color: rgb(104,116,108); color: rgb(201,189,152); border:none; border-radius: 4px;">
@@ -173,7 +166,6 @@ $conn->close();
           </div>
         </div>
 
-        <!-- RANKING -->
         <div class="group-box mt-3">
           <button style="width: 100%; background-color: rgb(104,116,108); color: rgb(201,189,152); border:none; border-radius: 4px;">
             <h3 class="text-center titulo pt-2" style="font-size: 1rem;">Ranking</h3>
@@ -185,7 +177,6 @@ $conn->close();
           </div>
         </div>
 
-        <!-- AMIGOS -->
         <div class="group-box mt-3">
           <a href="ver_amigos.php">
             <button style="width: 100%; background-color: rgb(104,116,108); color: rgb(201,189,152); border:none; border-radius: 4px;">
@@ -202,7 +193,6 @@ $conn->close();
     </div>
   </div>
 
-  <!-- FOOTER (10%) -->
   <footer>
     Cluster Role © 2025 - Todos los derechos reservados
   </footer>

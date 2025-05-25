@@ -14,7 +14,17 @@ $stmt->store_result();
 if ($stmt->num_rows == 0) {
     die("Partida no encontrada.");
 }
+$id_user = $_SESSION['id_user'] ?? 0;
+$profile_photo = null;
 
+if ($id_user) {
+    $stmt = $conn->prepare("SELECT profile_photo FROM usuarios WHERE id_user = ?");
+    $stmt->bind_param("i", $id_user);
+    $stmt->execute();
+    $stmt->bind_result($profile_photo);
+    $stmt->fetch();
+    $stmt->close();
+}
 $stmt->bind_result($id_partida, $id_group, $id_creador, $mapa, $fecha_inicio, $fecha_fin, $estado);
 $stmt->fetch();
 $stmt->close();
@@ -31,6 +41,37 @@ $conn->close();
   <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
 </head>
 <body>
+   <header class="border-bottom border-secondary py-3 px-4 d-flex justify-content-center align-items-center">
+    <div class="d-flex justify-content-between align-items-center px-4" style="width: 100%; position: relative;">
+      <div class="dropdown ms-auto order-2">
+        <?php if ($profile_photo): ?>
+        <img src="data:image/jpeg;base64,<?= base64_encode($profile_photo) ?>"
+             class="rounded-circle dropdown-toggle"
+             id="dropdownMenuButton"
+             data-bs-toggle="dropdown"
+             aria-expanded="false"
+             style="width: 40px; height: 40px; object-fit: cover; cursor: pointer;" />
+        <?php else: ?>
+        <img src="/Cluster_Role/proyecto/foto/icons/default_profile.png"
+             class="rounded-circle dropdown-toggle"
+             id="dropdownMenuButton"
+             data-bs-toggle="dropdown"
+             aria-expanded="false"
+             style="width: 40px; height: 40px; object-fit: cover; cursor: pointer;" />
+        <?php endif; ?>
+        <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="dropdownMenuButton" style="background-color:#525D5A; color: #C9BD98;">
+          <li><a class="dropdown-item" href="configuracio_usuaris.php" style="color:#C9BD98;">Usuario</a></li>
+          <li><a class="dropdown-item" href="reportes.php" style="color:#C9BD98;">Reportes</a></li>
+          <li><a class="dropdown-item" href="logout.php" style="color:#C9BD98;">Cerrar sesión</a></li>
+        </ul>
+      </div>
+
+      <div class="position-absolute start-50 translate-middle-x titulo fw-bold fs-2 text-center">
+        <a href="usuario.php"> Cluster Role</a>
+
+      </div>
+    </div>
+  </header>
     <div class="container-fluid mt-4 px-5">
   <div class="row g-4">
     <div class="col-md-6 d-flex justify-content-center align-items-start">
@@ -55,3 +96,5 @@ $conn->close();
 
 </body>
 </html>
+
+

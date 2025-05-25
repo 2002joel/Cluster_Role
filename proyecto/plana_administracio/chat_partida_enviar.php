@@ -9,7 +9,6 @@ if (!$id_group) {
     die("ID de grupo no especificado.");
 }
 
-// Obtener nombre del grupo
 $check = $conn->prepare("SELECT group_name FROM grupo WHERE id_group = ?");
 $check->bind_param("i", $id_group);
 $check->execute();
@@ -21,7 +20,6 @@ $check->bind_result($group_name);
 $check->fetch();
 $check->close();
 
-// Obtener mensajes del chat_game
 $stmt = $conn->prepare("
     SELECT cg.mensaje, cg.fecha_envio, u.user_name 
     FROM chat_game cg

@@ -20,7 +20,7 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
     }
 
     $hashed_password = password_hash($password, PASSWORD_DEFAULT);
-    echo "🔐 Hash generado: $hashed_password<br>"; // SOLO PARA PRUEBA
+ 
 
     $stmt = $conn->prepare("SELECT * FROM usuarios WHERE user_name = ? OR email = ? LIMIT 1");
     $stmt->bind_param("ss", $username, $email);

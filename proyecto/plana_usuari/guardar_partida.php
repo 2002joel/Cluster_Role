@@ -10,7 +10,6 @@ if (!$id_grupo || !$id_imagen || !$id_creador) {
     die("Faltan datos para crear la partida.");
 }
 
-// Obtener la imagen binaria de imagenes_default
 $stmt = $conn->prepare("SELECT imagen FROM imagenes_defaukt WHERE id_imagen = ?");
 $stmt->bind_param("i", $id_imagen);
 $stmt->execute();
@@ -20,21 +19,18 @@ if (!$stmt->fetch()) {
 }
 $stmt->close();
 
-// Insertar partida con la imagen binaria y fecha_inicio actual, estado 'activa' (ejemplo)
 $fecha_inicio = date('Y-m-d H:i:s');
 $estado = 'activa';
 
 $stmt = $conn->prepare("INSERT INTO partida (id_group, id_creador, mapa, fecha_inicio, estado) VALUES (?, ?, ?, ?, ?)");
 $stmt->bind_param("iibss", $id_grupo, $id_creador, $null, $fecha_inicio, $estado);
 
-// Para el campo mapa blob, hacemos así:
 $stmt->send_long_data(2, $imagen_binaria);
 
 if ($stmt->execute()) {
     $id_partida = $stmt->insert_id;
     $stmt->close();
     $conn->close();
-    // Redirigir a mostrar partida con id
     header("Location: mostrar_partida.php?id_partida=" . $id_partida);
     exit();
 } else {

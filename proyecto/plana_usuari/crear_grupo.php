@@ -16,7 +16,6 @@ if (isset($_FILES['profile_photo']) && $_FILES['profile_photo']['error'] === UPL
     $imagen_blob = file_get_contents($_FILES['profile_photo']['tmp_name']);
 }
 
-// Crear el grupo (asumimos que tienes una tabla "grupos" con columnas: id, nombre, imagen BLOB, creador_id, fecha)
 $sql = "INSERT INTO grupo (group_name, profile_photo, id_creador, creation_date) VALUES (?, ?, ?, NOW())";
 $stmt = $conn->prepare($sql);
 $stmt->bind_param("sbi", $group_name, $imagen_blob, $id_usuario);

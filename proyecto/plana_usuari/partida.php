@@ -50,7 +50,6 @@ $conn->close();
 
 <div id="mapa">
   <img src="mostrar_imagen.php?id_imagen=<?= $id_imagen ?>" alt="Mapa partida" style="width: 100%; height: 100%; object-fit: contain;">
-  <!-- Aquí podrías añadir código JS para colocar personajes encima del mapa -->
 </div>
 
 <div id="chat">

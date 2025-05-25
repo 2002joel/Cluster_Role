@@ -60,8 +60,6 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && !empty($_POST['mensaje'])) {
 </head>
 <body>
 
-<h3>Chat del Grupo #<?= htmlspecialchars($id_group) ?></h3>
-
 <div class="chat-box" id="chatBox">
     <?php
     $stmt = $conn->prepare("
