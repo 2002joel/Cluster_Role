@@ -59,7 +59,7 @@ $conn->close();
       </div>
 
       <div class="position-absolute start-50 translate-middle-x titulo fw-bold fs-2 text-center">
-        Cluster Role
+        <a href="usuario.php"> Cluster Role</a>
       </div>
     </div>
   </header>

@@ -22,6 +22,7 @@ if ($row = $result->fetch_assoc()) {
     exit();
 } else {
     echo "No tienes ninguna partida activa creada.";
+    
 }
 ?>
 

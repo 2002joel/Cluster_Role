@@ -44,22 +44,25 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && !empty($_POST['mensaje'])) {
 <!DOCTYPE html>
 <html lang="es">
 <head>
-    <meta charset="UTF-8">
-    <title>Chat del Grupo #<?= htmlspecialchars($id_group) ?></title>
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+    <meta charset="UTF-8" />
+    <title>Cluster Role - Layout Discord</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" />
+    <link rel="stylesheet" href="styles.css" />
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
     <style>
         body { font-family: sans-serif; padding: 20px; }
         .chat-box { border: 1px solid #ccc; height: 300px; overflow-y: auto; padding: 10px; margin-bottom: 10px; }
         .mensaje { margin-bottom: 5px; }
         .form-chat { display: flex; gap: 10px; align-items: flex-start; }
         .form-chat textarea { flex-grow: 1; resize: none; }
+        .dropdown.dropup { margin-right: 10px; }
     </style>
 </head>
 <body>
 
 <h3>Chat del Grupo #<?= htmlspecialchars($id_group) ?></h3>
 
-<div class="chat-box">
+<div class="chat-box" id="chatBox">
     <?php
     $stmt = $conn->prepare("
         SELECT u.user_name, c.mensaje, c.fecha_envio
@@ -75,42 +78,41 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && !empty($_POST['mensaje'])) {
     while ($stmt->fetch()) {
         echo "<div class='mensaje'><strong>" . htmlspecialchars($nombre) . ":</strong> " . htmlspecialchars($mensaje) . " <small>[" . $fecha . "]</small></div>";
     }
-
     $stmt->close();
     ?>
 </div>
 
 <form id="formChat" class="form-chat" method="post">
     <textarea name="mensaje" rows="2" placeholder="Escribe tu mensaje..."></textarea>
-    
+
+    <!-- Dropdown dados -->
     <div class="dropdown dropup">
-        <button class="btn btn-secondary dropdown-toggle" type="button" data-bs-toggle="dropdown">
-            🎲 Dado
+        <button class="btn btn-secondary dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false">
+            Tirar dado
         </button>
         <ul class="dropdown-menu">
-            <li><a class="dropdown-item" href="#" onclick="tirarDado(6)">d6</a></li>
-            <li><a class="dropdown-item" href="#" onclick="tirarDado(10)">d10</a></li>
-            <li><a class="dropdown-item" href="#" onclick="tirarDado(20)">d20</a></li>
-            <li><a class="dropdown-item" href="#" onclick="tirarDado(100)">d100</a></li>
+            <li><a class="dropdown-item" href="#" onclick="tirarDado(6); return false;">d6</a></li>
+            <li><a class="dropdown-item" href="#" onclick="tirarDado(10); return false;">d10</a></li>
+            <li><a class="dropdown-item" href="#" onclick="tirarDado(20); return false;">d20</a></li>
+            <li><a class="dropdown-item" href="#" onclick="tirarDado(100); return false;">d100</a></li>
         </ul>
     </div>
 
     <button type="submit" class="btn btn-primary">Enviar</button>
 </form>
 
-<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
 <script>
-document.addEventListener("DOMContentLoaded", function () {
+    // Usuario desde PHP para mostrar en el mensaje
     const userName = <?= json_encode($user_name) ?>;
 
-    window.tirarDado = function(lados) {
+    function tirarDado(lados) {
         const numero = Math.floor(Math.random() * lados) + 1;
         const mensaje = `${userName} ha tirado un d${lados} y ha sacado un ${numero}`;
         const textarea = document.querySelector('textarea[name="mensaje"]');
         textarea.value = mensaje;
-        document.getElementById("formChat").submit();
-    };
-});
+        // Envía el formulario automáticamente para insertar el mensaje en la base
+        document.getElementById('formChat').submit();
+    }
 </script>
 
 </body>

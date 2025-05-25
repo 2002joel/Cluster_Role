@@ -29,6 +29,12 @@ $conn->close();
   <link href="https://fonts.googleapis.com/css2?family=Uncial+Antiqua&display=swap" rel="stylesheet">
 
 </head>
+<?php if (isset($_GET['error']) && $_GET['error'] == 1): ?>
+<script>
+    alert("No se ha encontrado ninguna partida activa.");
+</script>
+<?php endif; ?>
+
 
 <body>
   <!-- HEADER (20%) -->
@@ -89,7 +95,7 @@ include 'cargar_grupo.php';
 
 <!-- Verificamos si $id_group tiene valor -->
 <?php if (isset($id_group) && $id_group > 0): ?>
-  <a href="crear_partida.php?id_group=<?php echo $id_group; ?>" target="_blank">
+  <a href="crear_partida.php?id_group=<?php echo $id_group; ?>">
     <button>Crear Partida</button>
   </a>
 <?php else: ?>

@@ -28,7 +28,7 @@ if ($result->num_rows == 0) {
 }
 
 // Redirige de nuevo al perfil
-header("Location: index.php?id=$id_amigo");
+header("Location: usuario.php?id=$id_amigo");
 exit();
 ?>
 

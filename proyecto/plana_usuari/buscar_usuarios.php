@@ -8,7 +8,7 @@ if ($buscar === '') {
     return;
 }
 
-$query = "SELECT user_name, id_user, profile_photo FROM usuarios WHERE id_user != ? AND user_name LIKE ?";
+$query = "SELECT user_name, id_user, profile_photo FROM usuarios WHERE id_user != ? AND (administrador IS NULL OR administrador = 0) AND user_name LIKE ?";
 $stmt = $conn->prepare($query);
 $like = "%" . $buscar . "%";
 $stmt->bind_param("is", $id_usuario, $like);
@@ -23,9 +23,7 @@ if ($result->num_rows === 0) {
         $id_user = $row['id_user'];
         $profile_photo = $row['profile_photo']; // Esto es el BLOB de la imagen
 
-        // Verifica si la imagen existe
         if ($profile_photo) {
-            // Si existe la imagen, la mostramos
             echo "<div class='d-flex align-items-center mb-2'>
                     <a href='perfil_usuario.php?id=$id_user'>
                         <img src='data:image/jpeg;base64," . base64_encode($profile_photo) . "' class='rounded-circle me-2' width='40' height='40'>
@@ -33,7 +31,6 @@ if ($result->num_rows === 0) {
                     </a>
                   </div>";
         } else {
-            // Si no tiene imagen, mostramos una imagen por defecto
             echo "<div class='d-flex align-items-center mb-2'>
                     <a href='perfil_usuario.php?id=$id_user'>
                         <img src='img/default.png' class='rounded-circle me-2' width='40' height='40'>
@@ -44,6 +41,7 @@ if ($result->num_rows === 0) {
     }
 }
 ?>
+
 
 
 

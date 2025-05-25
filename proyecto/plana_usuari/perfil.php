@@ -45,7 +45,7 @@ if ($result->num_rows > 0) {
     echo "</form>";
 
 } else {
-    echo "<p>No se ha encontrado el perfil de usuario.</p>";
+     "<p>No se ha encontrado el perfil de usuario.</p>";
 }
 ?>
 

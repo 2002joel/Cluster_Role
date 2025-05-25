@@ -266,4 +266,18 @@ h2, h3 {
   z-index: 2;
 }
 
+.mapa-img {
+  max-width: 100%;
+  max-height: 500px;
+  object-fit: contain;
+  border: 3px solid #AC844C;
+  background-color: #333633;
+  padding: 5px;
+}
+
+.chat-frame {
+  border: 2px solid #A4AC94;
+  box-shadow: 0 0 15px rgba(172,132,76, 0.4);
+}
+
 

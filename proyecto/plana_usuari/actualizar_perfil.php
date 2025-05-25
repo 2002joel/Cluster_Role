@@ -22,8 +22,11 @@ if (isset($_FILES['foto']) && $_FILES['foto']['error'] === 0) {
 }
 
 if ($stmt->execute()) {
-    echo "Perfil actualizado correctamente. <a href='configuracio_usuaris.php'>Volver al perfil</a>";
+    // Redirección automática a usuario.php
+    header("Location: usuario.php");
+    exit;
 } else {
     echo "Error al actualizar el perfil.";
 }
 ?>
+
